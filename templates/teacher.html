@@ -1,0 +1,536 @@
+{% extends "base.html" %}
+{% block title %}{{ user.username }}'s Scheduler{% endblock %}
+{% block head %}Welcome to your Scheduler
+<style>
+table
+{
+    table-layout:fixed;
+}
+td, th {
+    text-align: center;
+    border:1px solid #EEEEEE;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            Instructions
+        </h2>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">Fill the start time of your session in the table</li>
+        <li class="list-group-item">First fill your preferred timings in this format [hour:minute:am/pm] and next time you will see your preffered timings automatically</li>
+        <li class="list-group-item">In the table red cells are booked by some student and green cells are unbooked and in remaining cells you have not entered your preferred timings yet</li>
+        <li class="list-group-item">To see the student details click on the red button</li>
+        <li class="list-group-item">Link which you can share with your students to book their slots is <a href="/student/{{ user.username }}/">student</a><br></li>
+        <li class="list-group-item">To unbook all the slots click on the clear link.In this case your preferred timings will not be lost and you are supposed to do this once in week</li>
+    <div class="panel-body text-center">
+        <h3>------| Your Schedule |------</h3>
+    </div>
+    <form class="form form-horizontal"method="post" action="{%url 'teacher:submit_teacher' %}">
+        {% csrf_token %}
+        <table class="table table-responsive">
+            <tr>
+                <th class="active"> Days </th>
+                <th class="active">Slot 1</th>
+                <th class="active">Slot 2</th>
+                <th class="active">Slot 3</th>
+                <th class="active">Slot 4</th>
+                <th class="active">Slot 5</th>
+                <th class="active">Slot 6</th>
+            </tr>
+            <tr>
+                <th class="active">Monday</th>
+                {% if stu.0.time == '' %}
+                    <td><input type="time" name="mon1" value={{stu.0.time}}></td>
+                {% else %}
+                    {% if stu.0.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="mon1" value={{stu.0.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="mon1" value={{stu.0.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.0.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.0.studentname}}</li><li class="text-center">{{stu.0.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.1.time == '' %}
+                    <td><input type="time" name="mon2" value={{stu.1.time}}></td>
+                {% else %}
+                    {% if stu.1.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="mon2" value={{stu.1.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="mon2" value={{stu.1.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.1.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.1.studentname}}</li><li class="text-center">{{stu.1.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.2.time == '' %}
+                    <td><input type="time" name="mon3" value={{stu.2.time}}></td>
+                {% else %}
+                    {% if stu.2.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="mon3" value={{stu.2.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="mon3" value={{stu.2.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.2.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.2.studentname}}</li><li class="text-center">{{stu.2.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.3.time == '' %}
+                    <td><input type="time" name="mon4" value={{stu.3.time}}></td>
+                {% else %}
+                    {% if stu.3.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="mon4" value={{stu.3.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="mon4" value={{stu.3.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.3.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.3.studentname}}</li><li class="text-center">{{stu.3.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.4.time == '' %}
+                    <td><input type="time" name="mon5" value={{stu.4.time}}></td>
+                {% else %}
+                    {% if stu.4.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="mon5" value={{stu.4.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="mon5" value={{stu.4.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.4.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.4.studentname}}</li><li class="text-center">{{stu.4.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.5.time == '' %}
+                    <td><input type="time" name="mon6" value={{stu.5.time}}></td>
+                {% else %}
+                    {% if stu.5.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="mon6" value={{stu.5.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="mon6" value={{stu.5.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.5.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.5.studentname}}</li><li class="text-center">{{stu.5.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th class="active">Tuesday</th>
+                {% if stu.6.time == '' %}
+                    <td><input type="time" name="tue1" value={{stu.6.time}}></td>
+                {% else %}
+                    {% if stu.6.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="tue1" value={{stu.6.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="tue1" value={{stu.6.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.6.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.6.studentname}}</li><li class="text-center">{{stu.6.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.7.time == '' %}
+                    <td><input type="time" name="tue2" value={{stu.7.time}}></td>
+                {% else %}
+                    {% if stu.7.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="tue2" value={{stu.7.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="tue2" value={{stu.7.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.7.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.7.studentname}}</li><li class="text-center">{{stu.7.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.8.time == '' %}
+                    <td><input type="time" name="tue3" value={{stu.8.time}}></td>
+                {% else %}
+                    {% if stu.8.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="tue3" value={{stu.8.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="tue3" value={{stu.8.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.8.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.8.studentname}}</li><li class="text-center">{{stu.8.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.9.time == '' %}
+                    <td><input type="time" name="tue4" value={{stu.9.time}}></td>
+                {% else %}
+                    {% if stu.9.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="tue4" value={{stu.9.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="tue4" value={{stu.9.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.9.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.9.studentname}}</li><li class="text-center">{{stu.9.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.10.time == '' %}
+                    <td><input type="time" name="tue5" value={{stu.10.time}}></td>
+                {% else %}
+                    {% if stu.10.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="tue5" value={{stu.10.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="tue5" value={{stu.10.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.10.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.10.studentname}}</li><li class="text-center">{{stu.10.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.11.time == '' %}
+                    <td><input type="time" name="tue6" value={{stu.11.time}}></td>
+                {% else %}
+                    {% if stu.11.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="tue6" value={{stu.11.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="tue6" value={{stu.11.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.11.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.11.studentname}}</li><li class="text-center">{{stu.11.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th class="active">Wednesday</th>
+                {% if stu.12.time == '' %}
+                    <td><input type="time" name="wed1" value={{stu.12.time}}></td>
+                {% else %}
+                    {% if stu.12.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="wed1" value={{stu.12.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="wed1" value={{stu.12.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.12.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.12.studentname}}</li><li class="text-center">{{stu.12.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.13.time == '' %}
+                    <td><input type="time" name="wed2" value={{stu.13.time}}></td>
+                {% else %}
+                    {% if stu.13.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="wed2" value={{stu.13.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="wed2" value={{stu.13.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.13.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.13.studentname}}</li><li class="text-center">{{stu.13.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.14.time == '' %}
+                    <td><input type="time" name="wed3" value={{stu.14.time}}></td>
+                {% else %}   
+                    {% if stu.14.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="wed3" value={{stu.14.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="wed3" value={{stu.14.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.14.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.14.studentname}}</li><li class="text-center">{{stu.14.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.15.time == '' %}
+                    <td><input type="time" name="wed4" value={{stu.15.time}}></td>
+                {% else %}
+                    {% if stu.15.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="wed4" value={{stu.15.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="wed4" value={{stu.15.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.15.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.15.studentname}}</li><li class="text-center">{{stu.15.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.16.time == '' %}
+                    <td><input type="time" name="wed5" value={{stu.16.time}}></td>
+                {% else %}
+                    {% if stu.16.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="wed5" value={{stu.16.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="wed5" value={{stu.16.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.16.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.16.studentname}}</li><li class="text-center">{{stu.16.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.17.time == '' %}
+                    <td><input type="time" name="wed6" value={{stu.17.time}}></td>
+                {% else %}
+                    {% if stu.17.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="wed6" value={{stu.17.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="wed6" value={{stu.17.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.17.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.17.studentname}}</li><li class="text-center">{{stu.17.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th class="active">Thursday</th>
+                {% if stu.18.time == '' %}
+                    <td><input type="time" name="thu1" value={{stu.18.time}}></td>
+                {% else %}
+                    {% if stu.18.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="thu1" value={{stu.18.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="thu1" value={{stu.18.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.18.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.18.studentname}}</li><li class="text-center">{{stu.18.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.19.time == '' %}
+                    <td><input type="time" name="thu2" value={{stu.19.time}}></td>
+                {% else %}
+                    {% if stu.19.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="thu2" value={{stu.19.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="thu2" value={{stu.19.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.19.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.19.studentname}}</li><li class="text-center">{{stu.19.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.20.time == '' %}
+                    <td><input type="time" name="thu3" value={{stu.20.time}}></td>
+                {% else %}   
+                    {% if stu.20.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="thu3" value={{stu.20.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="thu3" value={{stu.20.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.20.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.20.studentname}}</li><li class="text-center">{{stu.20.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.21.time == '' %}
+                    <td><input type="time" name="thu4" value={{stu.21.time}}></td>
+                {% else %}
+                    {% if stu.21.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="thu4" value={{stu.21.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="thu4" value={{stu.21.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.21.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.21.studentname}}</li><li class="text-center">{{stu.21.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.22.time == '' %}
+                    <td><input type="time" name="thu5" value={{stu.22.time}}></td>
+                {% else %}
+                    {% if stu.22.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="thu5" value={{stu.22.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="thu5" value={{stu.22.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.22.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.22.studentname}}</li><li class="text-center">{{stu.22.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.23.time == '' %}
+                    <td><input type="time" name="thu6" value={{stu.23.time}}></td>
+                {% else %}
+                    {% if stu.23.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="thu6" value={{stu.23.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="thu6" value={{stu.23.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.23.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.23.studentname}}</li><li class="text-center">{{stu.23.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th class="active">Friday</th>
+                {% if stu.24.time == '' %}
+                    <td><input type="time" name="fri1" value={{stu.24.time}}></td>
+                {% else %}
+                    {% if stu.24.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="fri1" value={{stu.24.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="fri1" value={{stu.24.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.24.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.24.studentname}}</li><li class="text-center">{{stu.24.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.25.time == '' %}
+                    <td><input type="time" name="fri2" value={{stu.25.time}}></td>
+                {% else %}
+                    {% if stu.25.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="fri2" value={{stu.25.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="fri2" value={{stu.25.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.25.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.25.studentname}}</li><li class="text-center">{{stu.25.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.26.time == '' %}
+                    <td><input type="time" name="fri3" value={{stu.26.time}}></td>
+                {% else %}  
+                    {% if stu.26.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="fri3" value={{stu.26.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="fri3" value={{stu.26.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.26.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.26.studentname}}</li><li class="text-center">{{stu.26.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.27.time == '' %}
+                    <td><input type="time" name="fri4" value={{stu.27.time}}></td>
+                {% else %}
+                    {% if stu.27.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="fri4" value={{stu.27.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="fri4" value={{stu.27.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.27.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.27.studentname}}</li><li class="text-center">{{stu.27.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.28.time == '' %}
+                    <td><input type="time" name="fri5" value={{stu.28.time}}></td>
+                {% else %}
+                    {% if stu.28.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="fri5" value={{stu.28.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="fri5" value={{stu.28.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.28.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.28.studentname}}</li><li class="text-center">{{stu.28.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.29.time == '' %}
+                    <td><input type="time" name="fri6" value={{stu.29.time}}></td>
+                {% else %}
+                    {% if stu.29.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="fri6" value={{stu.29.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="fri6" value={{stu.29.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.29.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.29.studentname}}</li><li class="text-center">{{stu.29.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th class="active">Saturday</th>
+                {% if stu.30.time == '' %}
+                    <td><input type="time" name="sat1" value={{stu.30.time}}></td>
+                {% else %}
+                    {% if stu.30.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="sat1" value={{stu.30.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="sat1" value={{stu.30.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.30.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.30.studentname}}</li><li class="text-center">{{stu.30.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.31.time == '' %}
+                    <td><input type="time" name="sat2" value={{stu.31.time}}></td>
+                {% else %}
+                    {% if stu.31.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="sat2" value={{stu.31.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="sat2" value={{stu.31.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.31.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.31.studentname}}</li><li class="text-center">{{stu.31.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.32.time == '' %}
+                    <td><input type="time" name="sat3" value={{stu.32.time}}></td>
+                {% else %}   
+                    {% if stu.32.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="sat3" value={{stu.32.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="sat3" value={{stu.32.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.32.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.32.studentname}}</li><li class="text-center">{{stu.32.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.33.time == '' %}
+                    <td><input type="time" name="sat4" value={{stu.33.time}}></td>
+                {% else %}
+                    {% if stu.33.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="sat4" value={{stu.33.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="sat4" value={{stu.33.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.33.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.33.studentname}}</li><li class="text-center">{{stu.33.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.34.time == '' %}
+                    <td><input type="time" name="sat5" value={{stu.34.time}}></td>
+                {% else %}
+                    {% if stu.34.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="sat5" value={{stu.34.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="sat5" value={{stu.34.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.34.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.34.studentname}}</li><li class="text-center">{{stu.34.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.35.time == '' %}
+                    <td><input type="time" name="sat6" value={{stu.35.time}}></td>
+                {% else %}
+                    {% if stu.35.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="sat6" value={{stu.35.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="sat6" value={{stu.35.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.35.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.35.studentname}}</li><li class="text-center">{{stu.35.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th class="active">Sunday</th>
+                {% if stu.36.time == '' %}
+                    <td><input type="time" name="sun1" value={{stu.36.time}}></td>
+                {% else %}
+                    {% if stu.36.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="sun1" value={{stu.36.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="sun1" value={{stu.36.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.36.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.36.studentname}}</li><li class="text-center">{{stu.36.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.37.time == '' %}
+                    <td><input type="time" name="sun2" value={{stu.37.time}}></td>
+                {% else %}
+                    {% if stu.37.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="sun2" value={{stu.37.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="sun2" value={{stu.37.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.37.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.37.studentname}}</li><li class="text-center">{{stu.37.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.38.time == '' %}
+                    <td><input type="time" name="sun3" value={{stu.38.time}}></td>
+                {% else %}   
+                    {% if stu.38.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="sun3" value={{stu.38.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="sun3" value={{stu.38.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.38.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.38.studentname}}</li><li class="text-center">{{stu.38.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.39.time == '' %}
+                    <td><input type="time" name="sun4" value={{stu.39.time}}></td>
+                {% else %}
+                    {% if stu.39.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="sun4" value={{stu.39.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="sun4" value={{stu.39.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.39.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.39.studentname}}</li><li class="text-center">{{stu.39.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.40.time == '' %}
+                    <td><input type="time" name="sun5" value={{stu.40.time}}></td>
+                {% else %}
+                    {% if stu.40.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="sun5" value={{stu.40.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="sun5" value={{stu.40.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.40.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.40.studentname}}</li><li class="text-center">{{stu.40.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.41.time == '' %}
+                    <td><input type="time" name="sun6" value={{stu.41.time}}></td>
+                {% else %}
+                    {% if stu.41.bookingstatus == 0 %}
+                        <td class="success"><input type="time" name="sun6" value={{stu.41.time}}></td>
+                    {% else %}
+                        <input type="hidden" name="sun6" value={{stu.41.time}}>
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.41.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.41.studentname}}</li><li class="text-center">{{stu.41.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            <tr>
+                <td colspan="7"><button class="btn btn-default" type="submit" value="Submit">Submit</button> <a class="btn btn-primary" href="/teacher/clear/">Clear</a></td>
+            </tr>
+        </table>
+    </form>
+    <div class="panel-footer">
+<a href="/student/{{ user.username }}/">Link to be shared with your students to show your session timings</a><br> 
+<p>Above url link will redirect you to http://127.0.0.1:8000/student/{{ user.username }}/</p>
+        
+    </div>
+</div>
+{% endblock %}
+{% block options %}
+    Signed in as <a href="#">{{ user.username }}</a> | <a href="/logout/"> Logout</a>
+{% endblock %}

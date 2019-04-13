@@ -1,0 +1,77 @@
+{% extends "base_2.html" %}
+
+    {% block head_block %}
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+	<script type="text/javascript">
+
+    function changewsId(obj){
+    	var selectedws = obj.options[obj.selectedIndex];
+    	var wsid=selectedws.value;
+    		$.ajax({
+                   type: "GET",
+                   url:"/statusManagement/loadLastRC",                                             
+                   data:{wsid:wsid},    
+                   contentType: "application/json; charset=utf-8",                    
+                   datatype: 'json',
+                   success: function(result){
+                   		var len=result.selected_qs.length;
+                   		if(len!=0){
+	                   		if(result.selected_qs[0].fields.rcid==null){
+	                   			var urlString=window.location.href;
+				                if (selectedws.value != -1){
+				                    window.location = urlString + selectedws.value + '/0' + '/0';
+				                }
+				            }
+				            else{
+	                            var count=result.selected_qs.length; 
+	                            var selected_rcid=result.selected_qs[count-1].fields.rcid; 
+	                            var urlString=window.location.href;
+	                            window.location = urlString + selectedws.value + '/0' + '/'+ selected_rcid;
+	                   		}
+	                   	}
+		                else{
+		                	var urlString=window.location.href;
+					        if (selectedws.value != -1){
+					            window.location = urlString + selectedws.value + '/0' + '/0';
+					        }
+		                }
+                    }
+                });
+        }
+    
+        </script>
+    {% endblock %}
+
+    {% block body_block %}
+    <div class="tcube-be-together-section mdl-typography--text-center">
+
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--12-col">
+		<h1 style="color: #1E90FF;font-size: 220%;text-align: center;">{{updateStatus_heading}}</h1>
+		<br>
+	<!--   DROP DOWN FUNCTIONING  -->
+	<div style="width: auto; margin-bottom: 30px; border: solid 1px black; padding: 10px;">
+			<label><b>{{updateStatus_selectws}}</b></label>
+<select id="workshopidurl" onchange="changewsId(this);">
+				<option value="-1">{{updateStatus_option}}</option>
+				{% for obj in object_list %}
+				<option value={{obj.workshopid}}>{{obj.workshopid}}  --  {{obj.workshopname}}</option>
+				{% endfor %}
+			</select>
+
+			<!--<select id="workshopidurl" onchange="location=this.value">
+				<option value="-1">Select WorkshopId</option>
+				{% for obj in object_list %}
+				<option value={{obj.workshopid}}>{{obj.workshopid}}  --  {{obj.workshopname}}</option>
+				{% endfor %}
+			</select>-->
+		</div>
+		</div>
+		</div>
+		</div>
+	{% endblock %}

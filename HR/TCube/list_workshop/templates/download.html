@@ -1,0 +1,95 @@
+  {% extends 'base_1.html' %}
+{% load staticfiles %}
+
+{% block head_block %}  <!-- head block starts here -->               
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script>
+            function changeText(imageid, displayid) {
+                var srcTest = document.getElementById(imageid).src;
+                if (srcTest.indexOf("plus.png") > -1) {
+                    document.getElementById(displayid).style.display = "block";
+                    {% load staticfiles %}
+                    document.getElementById(imageid).src = "{% static 'images/minus.png' %}";
+                } else {
+                    document.getElementById(displayid).style.display = "none";
+                    {% load staticfiles %}
+                    document.getElementById(imageid).src = "{% static 'images/plus.png' %}";
+                }
+            }
+        </script>
+{% endblock %}
+
+{% block body_block %}
+
+
+            <div class="tcube-content mdl-layout__content">
+            <a name="top"></a>
+            <h1 style="color: #1E90FF; font-size:210%; text-align: center;">{{workshop.workshopname}}</h1>
+    <p style="font-size:136%; text-align: center;">National Mission on Education through ICT (MHRD, Govt. of India)</p>
+            <p style="font-size:146%; text-align: center;">{{workshop.startdate}} to {{workshop.enddate}}</p>
+                <!-- <div class="tcube-be-together-section mdl-typography--text-center">-->
+                    <div class="mdl-grid">
+                        <!--<div class="mdl-cell mdl-cell--1-col"></div>-->
+                        <div class="mdl-cell mdl-cell--8-col">
+                
+                            <table id="remoteCenterDetail1" class="display1" width="100%" cellspacing="0">
+                                <thead id="headers" style="font-size:100%">
+                                    <tr>
+                                        <th style="text-align: center;">Sr. no</th>
+                                        <th class="sortable-text" style="text-align: center;" scope="col">Session</th>
+                                        <th class="sortable-text" style="text-align: center;">Lecture</th>
+                                        <th class="sortable-text" style="text-align: center;">Click to download</th>      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            {% for obj in downld %}
+                                    <tr class="gradeU">
+                                        <td style="text-align: center;">{{forloop.counter}}</td>
+                                        <td style="text-align: center;">{{obj.session}}</td>
+                                        <td style="text-align: left;"><a href="">{{obj.video_name}}</a></td>
+                                        <td style="text-align: center;"><a href="">Download</a></td>
+                                    </tr>
+                            {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mdl-cell mdl-cell--1-col"></div>
+                        <div class="mdl-cell mdl-cell--3-col">
+                            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                                <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                                    <p class="title-white">Important News</p>
+                                </div>
+                                <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                    Test News .. 
+                                </div>             
+                            </div>
+                            <br/>
+                            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                                <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                                    <p class="title-white">Important News</p>
+                                </div>
+                                <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                    Test News .. 
+                                </div>             
+                            </div>
+                        </div>
+                    </div>
+               
+                <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+                <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+                <script type="text/javascript">
+                    $(document).ready( function () {
+                        $('#remoteCenterDetail1').DataTable();
+                    } );
+                </script>  
+
+                
+                <br>
+            </div>
+        
+        <script src="{% static "material.min.js" %}"></script>
+  
+            {% endblock %}

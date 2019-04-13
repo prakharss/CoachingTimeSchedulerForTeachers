@@ -1,0 +1,96 @@
+{% extends "base_2.html" %}
+    {% block head_block %} 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    {% endblock %}
+
+    {% block body_block %}
+        <h1 style="font-size:150%; text-align: center;">{{workshopname}}</h1>
+                    <p style="font-size:150%; text-align: center;">{{startdate}} to {{enddate}}</p>
+                    <h1 style="color: #1E90FF;font-size: 200%;" align="center">{{viewRC_heading}} </h1>
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--8-col">
+                    	<div class="mdl-js-layout__content" align="center">
+                    	<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="notBooked" onclick="location.href='{% url 'manageRCCapacity:view' wsid 0 %}'">{{btn_all}}</button>
+                    	<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="notBooked" onclick="location.href='{% url 'manageRCCapacity:view' wsid 1 %}'">{{btn_notBooked}}</button>
+                    	<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="leastBooked" onclick="location.href='{% url 'manageRCCapacity:view' wsid 2 %}'">{{btn_leastBooked}}</button>
+                    	<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="mostBooked" onclick="location.href='{% url 'manageRCCapacity:view' wsid 3 %}'">{{btn_mostBooked}}</button>
+                    	<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="overflowing" onclick="location.href='{% url 'manageRCCapacity:view' wsid 4 %}'">{{btn_overflowing}}</button>
+                    	</div>
+                    	<br><br>
+                        <div class="mdl-js-layout__content">
+                        <table id="remoteCenterDetail1" class="display1" width="100%" cellspacing="0">
+                            <thead id="headers" style="font-size:100%">
+                                <tr>
+                                    <th style="text-align: center;">{{table_srNo}}</th>
+                                    <th class="sortable-text" style="text-align: center;" scope="col">{{table_rcid}}</th>
+                                    <th class="sortable-text" style="text-align: center;">{{table_rcname}}</th>
+                                    <th class="sortable-text" style="text-align: center;">{{table_state}}</th>
+                                    <th class="sortable-text" style="text-align: center;">{{table_totalSeats}}</th>
+                                    <th class="sortable-text" style="text-align: center;">{{table_totalAcco}}</th>
+                                    <th class="sortable-text" style="text-align: center;">{{table_seatsProvBooked}}</th>
+                                    <th class="sortable-text" style="text-align: center;">{{table_accoProvBooked}}</th>
+                                    <th class="sortable-text" style="text-align: center;">{{table_seatsRem}}</th>       
+                                </tr>
+                            </thead>
+                            <tbody>
+	                            {% for obj in object_list %}
+	                                <tr class="gradeU">
+	                                    <td style="text-align: center;">{{forloop.counter}}</td>
+	                                    <td style="text-align: center;">{{obj.rcid}}</td>
+	                                    <td style="text-align: left;">{{obj.rcname}}</td>
+	                                    <td style="text-align: center;">{{obj.rcstate}}</td>
+	                                    {% if  not obj.available_seats  and not obj.availabe_accomo %}
+	                                        <td style="text-align: center;">0</td>
+	                                        <td style="text-align: center;">0</td>
+	                                        <td style="text-align: center;">0</td>
+	                                        <td style="text-align: center;">0</td>
+	                                        <td style="text-align: center;">0</td>
+	                                    {% else %}
+	                                    <td style="text-align: center;">{{obj.available_seats}}</td>
+	                                    <td style="text-align: center;">{{obj.available_accomo}}</td>
+	                                    <td style="text-align: center;">{{obj.seats_booked}}</td>
+	                                    <td style="text-align: center;">{{obj.acco_booked}}</td>
+	                                        {% if obj.seats_remain < 0 %}
+	                                        <td style="text-align: center;">0</td>
+	                                        {% else %}
+	                                        <td style="text-align: center;">{{obj.seats_remain}}</td>
+	                                        {% endif %}
+	                                    {% endif %}
+	                                </tr>
+	                            {% endfor %}
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+                    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+                    <script type="text/javascript">
+                        $(document).ready( function () {
+                            $('#remoteCenterDetail1').DataTable();
+                        } );
+                    </script>  
+                    <div class="mdl-cell mdl-cell--3-col">
+                        <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                            <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                                <p class="title-white">Important News</p>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                Test News .. 
+                            </div>             
+                        </div>
+                        <br/>
+                        <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                            <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                                <p class="title-white">Important News</p>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                Test News .. 
+                            </div>             
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}

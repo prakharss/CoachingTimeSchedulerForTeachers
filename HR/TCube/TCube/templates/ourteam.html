@@ -1,0 +1,570 @@
+        {% extends 'base_1.html' %}
+        {% load staticfiles %}
+
+        {% block head_block %}  <!-- head block starts here -->               
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+            <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        {% endblock %}
+
+        {% block body_block %}
+
+
+    	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+    		
+    <br> <br>
+     <h1 style="color: #1E90FF;font-size: 220%;text-align: center;">Software Team</h1>
+
+
+    <center> <div>
+                <div class="mdl-cell mdl-cell--3-col"><h4>Technical Team</h4></div>
+
+                <div class="mdl-js-layout__content">
+                    <div class="mdl-grid">
+
+
+<div class="mdl-cell mdl-cell--3-col">
+
+                            <div class="user-avatar">
+                                <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/deepak.jpg' %}" alt="Prof. D. B. Phatak">
+                            </div>
+
+                            <div class="info">
+                                <div class="title">
+                                    Prof. D. B. Phatak
+                                </div>
+                                <div class="designation">
+                                   Principal Investigator
+                                </div>
+                            </div>
+
+                            <div class="bottom">
+                                &nbsp;
+                            </div>
+
+                        </div>
+
+    <div class="mdl-cell mdl-cell--3-col">
+
+                            <div class="user-avatar">
+                                <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/avinash.jpg' %}" alt="Avinash Awate">
+                            </div>
+
+                            <div class="info">
+                                <div class="title">
+                                    Mr. Avinash Awate
+                                </div>
+                                <div class="designation">
+                                  <!--  Visionary and Chief Coordinator -->
+                                </div>
+                            </div>
+
+                            <div class="bottom">
+                                &nbsp;
+                            </div>
+
+                        </div>
+
+
+                        <div class="mdl-cell mdl-cell--3-col">
+
+                            <div class="user-avatar">
+                                <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/aruna.jpg' %}" alt="Aruna Adil">
+                            </div>
+
+                            <div class="info">
+                                <div class="title">
+                                    Aruna Adil
+                                </div>
+                                <div class="designation">
+                                   <!-- managerpart2  -->
+                                </div>
+                            </div>
+
+                            <div class="bottom">
+                                &nbsp;
+                            </div>
+
+                        </div>
+
+
+                        <div class="mdl-cell mdl-cell--3-col">
+
+                            <div class="user-avatar">
+                                <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/abinaya.jpg' %}" alt="Abinaya Venkatesan">
+                            </div>
+
+                            <div class="info">
+
+                                <div class="title">
+                                    Abinaya Venkatesan
+                                </div>
+
+                                <div class="designation">
+                                    <!--  Visionary and Chief Coordinator -->
+                                </div>
+                            </div>
+                        </div>
+
+                          <!--  <div class="bottom">
+                                <a href="https://www.facebook.com/jangir.raj" target="_blank" class="btn btn-social-icon btn-facebook">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="https://plus.google.com/+RajanikantJangir/" target="_blank" class="btn btn-social-icon btn-google-plus">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                                <a href="https://twitter.com/rkjangir85" target="_blank" class="btn btn-social-icon btn-twitter">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a href="https://in.linkedin.com/in/rajanikant" target="_blank" class="btn btn-social-icon btn-linkedin">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </div>-->
+                        
+
+                        <div class="mdl-cell mdl-cell--3-col">
+                            <div class="user-avatar">
+                                <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/dipesh.jpg' %}" alt="Dipesh Pawar">
+                            </div>
+                            <div class="info">
+                                <div class="title">
+                                    Dipesh Pawar
+                                </div>
+                                <div class="designation">
+                                    <!--  Visionary and Chief Coordinator -->
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                &nbsp;
+                            </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+            
+                <div class="mdl-cell mdl-cell--3-col"><h4>Developers</h4></div>
+                <div class="mdl-js-layout__content">
+                    <div class="mdl-grid">
+
+
+                        <div class="mdl-cell mdl-cell--3-col">
+
+                            <div class="user-avatar">
+                                <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/harsh.jpg' %}" alt="Harsh Chaudhari">
+                            </div>
+
+                            <div class="info">
+                                <div class="title">
+                                    Harsh Chaudhari
+                                </div>
+                                <div class="designation">
+                                    <!--  Visionary and Chief Coordinator -->
+                                </div>
+                            </div>
+
+                            <div class="bottom">
+                                &nbsp;
+                            </div>
+
+                        </div>
+
+
+                        <div class="mdl-cell mdl-cell--3-col">
+
+                            <div class="user-avatar">
+                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/Ananda.jpg' %}" alt="Ananda Rao H">
+                            </div>
+
+                            <div class="info">
+
+                                <div class="title">
+                                    Ananda Rao H
+                                </div>
+
+                                <div class="designation">
+                                    <!--  Visionary and Chief Coordinator -->
+                                </div>
+                            </div>
+
+
+                          <!--  <div class="bottom">
+                                <a href="https://www.facebook.com/jangir.raj" target="_blank" class="btn btn-social-icon btn-facebook">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="https://plus.google.com/+RajanikantJangir/" target="_blank" class="btn btn-social-icon btn-google-plus">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                                <a href="https://twitter.com/rkjangir85" target="_blank" class="btn btn-social-icon btn-twitter">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a href="https://in.linkedin.com/in/rajanikant" target="_blank" class="btn btn-social-icon btn-linkedin">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </div>-->
+                        </div>
+
+                        <div class="mdl-cell mdl-cell--3-col">
+                            <div class="user-avatar">
+                                <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/vani.jpg' %}" alt="Vani Agarwal">
+                            </div>
+                            <div class="info">
+                                <div class="title">
+                                    Vani Agarwal
+                                </div>
+                                <div class="designation">
+                                    <!--  Visionary and Chief Coordinator -->
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                &nbsp;
+                            </div>
+                        </div>
+
+                        <div class="mdl-cell mdl-cell--3-col">
+                            <div class="user-avatar">
+                                <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/rajdeep.jpg' %}" alt="Rajdeep Pinge">
+                            </div>
+                            <div class="info">
+                                <div class="title">
+                                    Rajdeep Pinge
+                                </div>
+                                <div class="designation">
+                                    <!--  Visionary and Chief Coordinator -->
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--3-col">
+                                <div class="user-avatar">
+             <img  style="width:150px; height:150px;" class="img-circle" src="{% static 'images/prakhar.jpg' %}" alt="Prakhar Singh Sengar" >
+                        
+                                </div>
+                                <div class="info">
+                                    <div class="title">
+                                        Prakhar Singh Sengar
+                                    </div>
+                                    <div class="designation">
+                                       <!--  Visionary and Chief Coordinator -->
+                                    </div>
+                                </div>
+                                <div class="bottom">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--3-col">
+                                <div class="user-avatar">
+                                    <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/sakshi.jpg' %}" alt="Sakshi Goyal">
+                                </div>
+                                <div class="info">
+                                    <div class="title">
+                                        Sakshi Goyal
+                                    </div>
+                                    <div class="designation">
+                                        <!--  Visionary and Chief Coordinator -->
+                                    </div>
+                                </div>
+                            <!--    <div class="bottom">
+                                    <a href="https://www.facebook.com/jangir.raj" target="_blank" class="btn btn-social-icon btn-facebook">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                    <a href="https://plus.google.com/+RajanikantJangir/" target="_blank" class="btn btn-social-icon btn-google-plus">
+                                        <i class="fa fa-google-plus"></i>
+                                    </a>
+                                    <a href="https://twitter.com/rkjangir85" target="_blank" class="btn btn-social-icon btn-twitter">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                    <a href="https://in.linkedin.com/in/rajanikant" target="_blank" class="btn btn-social-icon btn-linkedin">
+                                        <i class="fa fa-linkedin"></i>
+                                    </a>
+                                </div>-->
+                            </div>
+                            <div class="mdl-cell mdl-cell--3-col">
+                                <div class="user-avatar">
+                                    <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/ayushi.jpg' %}" alt="Ayushi Rastogi">
+                                </div>
+                                <div class="info">
+                                    <div class="title">
+                                        Ayushi Rastogi
+                                    </div>
+                                    <div class="designation">
+                                        <!--  Visionary and Chief Coordinator -->
+                                    </div>
+                                </div>
+                                <div class="bottom">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--3-col">
+                                <div class="user-avatar">
+                                    <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/anish.jpg' %}" alt="Anish V Monsy">
+                                </div>
+                                <div class="info">
+                                    <div class="title">
+                                        Anish V Monsy
+                                    </div>
+                                    <div class="designation">
+                                        <!--  Visionary and Chief Coordinator -->
+                                    </div>
+                                </div>
+                                <div class="bottom">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/pooja.jpg' %}" alt="Pooja Bihani">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Pooja Bihani
+                                        </div>
+                                        <div class="designation">
+                                           <!--  Visionary and Chief Coordinator -->
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/sai.jpg' %}" alt="Sai Prasad Kousika">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Sai Prasad Kousika
+                                        </div>
+                                        <div class="designation">
+                                            <!--  Visionary and Chief Coordinator -->
+                                        </div>
+                                    </div>
+                                  <!--  <div class="bottom">
+                                        <a href="https://www.facebook.com/jangir.raj" target="_blank" class="btn btn-social-icon btn-facebook">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                        <a href="https://plus.google.com/+RajanikantJangir/" target="_blank" class="btn btn-social-icon btn-google-plus">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                        <a href="https://twitter.com/rkjangir85" target="_blank" class="btn btn-social-icon btn-twitter">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                        <a href="https://in.linkedin.com/in/rajanikant" target="_blank" class="btn btn-social-icon btn-linkedin">
+                                            <i class="fa fa-linkedin"></i>
+                                        </a>
+                                    </div>-->
+                                </div>
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/naresh.jpg' %}" alt="Naresh Kumar Kadari">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Naresh Kumar Kadari
+                                        </div>
+                                        <div class="designation">
+                                            <!--  Visionary and Chief Coordinator -->
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        &nbsp;
+                                    </div>
+                                </div>
+
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/shubham.jpg' %}" alt="Shubham Patil">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Shubham Patil
+                                        </div>
+                                        <div class="designation">
+                                            <!--  Visionary and Chief Coordinator -->
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        &nbsp;
+                                    </div>
+                                </div>
+
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/sarath.jpg' %}" alt="Sarath Chandra">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Sarath Chandra
+                                        </div>
+                                        <div class="designation">
+                                            <!--  Visionary and Chief Coordinator -->
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="mdl-js-layout__content">
+                                <h1 style="color: #1E90FF;font-size: 220%;text-align: center;">Admin Team</h1>
+                            </div>
+                            <div class="mdl-js-layout__content">
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/mukta.jpg' %}" alt="Mukta Atray">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Mukta Atray
+                                        </div>
+                                      <div class="designation">
+                                            <!--  Visionary and Chief Coordinator -->
+                                        </div> 
+                                    </div>
+                                    <div class="bottom">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/mahendra.jpg' %}" alt="Mahendra Parmar">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Mahendra Parmar
+                                        </div>
+                                        <div class="designation">
+                                           <!--  Visionary and Chief Coordinator -->
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/kanan.jpg' %}" alt="Kanan D">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Kanan D 
+                                        </div>
+                                      <div class="designation">
+                                           <!--  Visionary and Chief Coordinator -->
+                                        </div>  
+                                    </div>
+                                    <div class="bottom">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/rachana.jpg' %}" alt="Rachana S">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Rachana S
+                                        </div>
+                                        <div class="designation">
+                                            <!--  Visionary and Chief Coordinator -->
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/sandeep.jpg' %}" alt="Kanan D">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Sandeep Gawali 
+                                        </div>
+                                      <div class="designation">
+                                           <!--  Visionary and Chief Coordinator -->
+                                        </div>  
+                                    </div>
+                                    <div class="bottom">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="mdl-js-layout__content">
+                                <h1 style="color: #1E90FF;font-size: 220%;text-align: center;">System Administration Team</h1>
+                            </div>
+                            <div class="mdl-js-layout__content">
+                            <div class="mdl-grid">
+                                
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/abhilash.jpg' %}" alt="xyz">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Abhilash K S
+                                        </div>
+                                        <div class="designation">
+                                            <!--  Visionary and Chief Coordinator -->
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/swati.jpg' %}" alt="xyz">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Swati Patil
+                                        </div>
+                                        <div class="designation">
+                                            <!--  Visionary and Chief Coordinator -->
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="user-avatar">
+                                        <img style="width:150px; height:150px;" class="img-circle" src="{% static 'images/manju.jpg' %}" alt="xyz">
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            Ms. Manju
+                                        </div>
+                                        <div class="designation">
+                                            <!--  Visionary and Chief Coordinator -->
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   </div></center>
+    <br><br><br>
+
+
+    						<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    						<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    					
+    						
+    						<script src="material.min.js"></script>
+    						<script src="{% static 'material.min.js' %}"></script>
+    					{% endblock %}

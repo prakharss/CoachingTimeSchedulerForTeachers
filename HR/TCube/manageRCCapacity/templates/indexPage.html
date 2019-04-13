@@ -1,0 +1,9 @@
+{% extends "base_2.html" %}
+    {% block head_block %}
+    {% endblock %}
+
+    {% block body_block %}
+    	<h1 style="color: #1E90FF;">Manage Remote Center Capacity</h1>
+    	<a href="{% url 'manageRCCapacity:manage' %}">Manage RC Capacity</a>
+    	<a href="{% url 'manageRCCapacity:RCCInterface' %}">RCC Interface</a>
+    {% endblock %} 

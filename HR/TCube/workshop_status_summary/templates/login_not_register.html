@@ -1,0 +1,41 @@
+{% extends "ws_base.html" %}
+{% load staticfiles %}
+
+{% block title %}Workshop Status Summary{% endblock %}
+
+
+{% block content %} 
+
+
+<h1 style="color: #036;font-weight: bold;font-size: 220%;text-align: center;">Signed Up But Not Registered in Any Workshop</h1>
+     
+       
+        <span style="font-size: 18px;">Export Excel</span> <button class="btn btn-success" id="btnExport" onclick="fnExcelReport();"><img style="height:35px;width:35px" src="{% static 'images/excel.png' %}"/></button>
+                    <iframe id="txtArea1" style="display:none"></iframe>
+
+
+        
+
+            <table id="mytable"  >
+                <thead id="tablehead" name="tablehead">
+                    <tr>
+                        <th id="wid" >Sr No</th>
+                        <th >Email</th>
+                        <th id="wid" >Name</th>
+                        <th id="wid" >Institute</th>
+                    </tr>
+                </thead>
+                <tbody id="mytable" name="tablebody">
+                     {% for each in result %}
+                        <tr>
+                            <td >{{ forloop.counter }}</td>
+                            <td >{{ each.1 }}</td>
+                            <td >{{ each.2 }} {{ each.3}}</td>
+                            <td >{{ each.4 }}</td>
+                        </tr>
+                      {% endfor %}  
+                </tbody>
+            </table>
+        </div>                
+
+{% endblock %}        

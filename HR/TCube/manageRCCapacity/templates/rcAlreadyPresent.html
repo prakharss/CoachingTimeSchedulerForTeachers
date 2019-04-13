@@ -1,0 +1,49 @@
+{% extends "base_2.html" %}
+
+        {% block head_block %} 
+        <script type="text/javascript">
+            function goBack() {
+                var url="http://127.0.0.1:8000/manageRCCapacity/manageRCCapacity.html/";
+                var urlString=window.location.href;
+                var pos1=urlString.indexOf(".html/")+6;
+                var pos2=urlString.lastIndexOf("/");
+                var wsid=urlString.slice(pos1,pos2);
+                window.location = url + wsid;
+            }
+        </script>
+         {% endblock %}
+        {% block body_block %}
+        <h1 style="color: #1E90FF;font-size: 200%; text-align:center;">{{addNewRCSuccess_heading}}</h1>
+        <br><br><br><br>
+        <div class="tcube-be-together-section mdl-typography--text-center">
+            <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--3-col">
+        <h1 style="font-size: 100%;">{{rcAlreadyPresent}}</h1>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="location.href='{% url 'manageRCCapacity:manageRCCapacity' wsid %}'">
+            {{goBack_btn}}
+        </button>
+        </div>
+                <div class="mdl-cell mdl-cell--3-col"></div>
+                <div class="mdl-cell mdl-cell--2-col">
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                            <p class="title-white">Important News</p>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            Test News .. 
+                        </div>             
+                    </div>
+                    <br/>
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                            <p class="title-white">Important News</p>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            Test News .. 
+                        </div>             
+                    </div>
+                </div>
+            </div>
+        </div>    
+    {% endblock %}

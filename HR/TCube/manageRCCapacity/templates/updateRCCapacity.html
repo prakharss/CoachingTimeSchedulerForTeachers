@@ -1,0 +1,96 @@
+{% extends "base_2.html" %}
+    {% block head_block %} 
+    <script type="text/javascript">
+        function formReset() {
+        //document.getElementById("updateRCSuccess").reset();
+        location.reload();
+        }
+    </script>
+{% endblock %}
+
+    {% block body_block %}
+
+        <h1 style="color: #1E90FF;font-size: 200%; text-align:center;">{{updateMessage_heading}}</h1>
+        <h1 style="font-size:150%; text-align: center;">{{workshopname}}</h1>
+        <p style="font-size:150%; text-align: center;">{{startdate}} to {{enddate}}</p>
+        <div class="tcube-be-together-section mdl-typography--text-center">
+            <div class="mdl-grid">
+                <!--<div class="mdl-cell mdl-cell--2-col"></div>-->
+                <div class="mdl-cell mdl-cell--5-col">
+                    <h1 style="font-size: 180%;">{{updateRC_subheading}} </h1>
+                    <form action="{% url 'manageRCCapacity:updateRCSuccess' wsid rcid %}" method='POST' name='updateRCSuccess' id='updateRCSuccess'>
+			 {% csrf_token %}
+                    {% if workshop.rc_payment_if_required != 1 %}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="rcId" name="rcID" value={{rcid}} required readonly>
+                            <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{updateRC_rcid}}</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="seats" name="seats" pattern="-?[0-9]*(\.[0-9]+)?" value={{available_seats}} required>
+                            <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_seats}}</label>
+                            <span class="mdl-textfield__error">{{number_validation}}</span>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="accomo" name="accomo" pattern="-?[0-9]*(\.[0-9]+)?" value={{available_accomo}} required>
+                            <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_acco}}</label>
+                            <span class="mdl-textfield__error">{{number_validation}}</span>
+                        </div>
+                    {% else %}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="rcId" name="rcID" value={{rcid}} required readonly>
+                            <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{updateRC_rcid}}</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="seats" name="seats" pattern="-?[0-9]*(\.[0-9]+)?" value={{available_seats}} required>
+                            <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_seats}}</label>
+                            <span class="mdl-textfield__error">{{number_validation}}</span>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="accomo" name="accomo" pattern="-?[0-9]*(\.[0-9]+)?" value={{available_accomo}} required>
+                            <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_acco}}</label>
+                            <span class="mdl-textfield__error">{{number_validation}}</span>
+                        </div>
+	                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+	                        <input class="mdl-textfield__input" type="text" id="accoCost" name="accoCost" pattern="-?[0-9]*(\.[0-9]+)?" value="{{accoCost}}" required>
+	                        <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_accoCost}}</label>
+                            <span class="mdl-textfield__error">{{number_validation}}</span>
+	                    </div>
+	                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+	                        <input class="mdl-textfield__input" type="text" id="foodCost" name="foodCost" pattern="-?[0-9]*(\.[0-9]+)?" value="{{foodCost}}" required>
+	                        <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_foodCost}}</label>
+                            <span class="mdl-textfield__error">{{number_validation}}</span>
+	                    </div>
+                    {% endif %}
+                        <br/><br/>
+                        <!-- Colored raised button -->
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                            {{btn_submit}}
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" onclick="formReset()">
+                            {{btn_reset}}
+                        </button>
+                    </form>
+                </div>
+                <div class="mdl-cell mdl-cell--3-col"></div>
+                <div class="mdl-cell mdl-cell--2-col">
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                            <p class="title-white">Important News</p>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            Test News .. 
+                        </div>             
+                    </div>
+                    <br/>
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                            <p class="title-white">Important News</p>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            Test News .. 
+                        </div>             
+                    </div>
+                </div>
+            </div>
+        </div>    
+    {% endblock %}

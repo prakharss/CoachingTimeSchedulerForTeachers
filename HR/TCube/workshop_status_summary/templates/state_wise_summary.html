@@ -1,0 +1,199 @@
+{% extends "ws_base.html" %}
+{% load staticfiles %}
+
+{% block title %}Workshop Status Summary{% endblock %}
+
+
+{% block content %} 
+<div  style="padding: 5px;width:100%;max-width:100%;" >
+            <div style="padding-left: 15px; padding-right: 15px; text-align: center;color:#4775d1;"><h3 id="heading_name"><b>State Wise Summary Report</b> </h3></div>
+
+            <div style="text-align: center; margin-top:  0px;">
+
+                <p>
+
+                <form method="POST">
+                {% csrf_token %}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style="font-size: 15px;">Group By Criteria :</span>
+                    <select id="groupbystate" class="displayselect" onchange="onStateCriteriaChange(this.value)">
+                        <option value="-1">-- select the type--</option>
+                        <option  value="gender">Gender-Wise</option>
+                        <option  value="experience">Experience-Wise</option>
+                        <option  value="qualification">Qualification-Wise</option>
+                        <option  value="all">All</option>
+                    </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span style="font-size: 18px;">Start Year(MM/dd/YYYY):<sup><i class="material-icons" style="font-size: 18px; color : red;">star</i></sup></span>
+                    
+                    <input type="date" style="width: 100px; background: white; border: none;"  id="datepicker1" name="startdate" onblur="">
+                    &nbsp;&nbsp;
+                    <span style="font-size: 18px;">End Year(MM/dd/YYYY) :<sup><i class="material-icons" style="font-size: 18px; color : red;">star</i></span>
+                    <input type="date" style="width: 100px; background: white; border: none;"  id="datepicker2" name="enddate" onblur="">
+                    
+                    &nbsp;&nbsp;
+                    <input id="sbutton"  type="submit" value="search" /><br><br>
+                    <br><br><br>
+					<span style="font-size: 18px;">Export Excel</span> <button class="btn btn-success" id="btnExport" onclick="state_wise_fnExcelReport();"><img style="height:35px;width:35px" src="{% static 'images/excel.png' %}"/></button>
+                    <iframe id="txtArea1" style="display:none"></iframe>
+                     </form>
+                </p>
+            </div> 
+            <div id="typeall" style="overflow: scroll; overflow-y: hidden;">
+                <table id="mytable" >
+                    <thead id="tablehead" name="tablehead">
+                        <tr>
+                            <th colspan="1" ></th>
+                            <th colspan="4" >Summary</th>
+                            <th colspan="3" >Gender</th>
+                            <th colspan="4" >Experience</th>
+                            <th colspan="5" >Qualification</th>
+                
+                        </tr>
+                        <tr>
+                            <th id="wid" >State</th> 
+                            <th >No of Remote Center</th> 
+                            <th >No of Workshops</th> 
+                            <th >No of Institute </th> 
+                            <th >No of Participants</th> 
+                            <th >M</th> 
+                            <th >F</th> 
+                            <th >Other</th> 
+                            <th >< 2</th> 
+                            <th >2 - 10</th> 
+                            <th > > 10</th> 
+                            <th >Unknown</th> 
+                            <th >Doctorate</th> 
+                            <th >Postgraduate</th> 
+                            <th >Graduate</th> 
+                            <th >Diploma</th> 
+                            <th >Others</th> 
+                        
+                        </tr>
+                    </thead>
+                    <tbody id="mytable" name="tablebody">
+                        {% for each in result %}
+                            <tr>
+                                <td >{{ each.0 }}</td>
+                                <td >{{ each.1 }}</td>
+                                <td >{{ each.2 }}</td>
+                                <td >{{ each.3 }}</td>
+                                <td >{{ each.4 }}</td>
+                                <td >{{ each.5 }}</td>
+                                <td >{{ each.6 }}</td>
+                                <td >{{ each.7 }}</td>
+                                <td >{{ each.10 }}</td>
+                                <td >{{ each.11 }}</td>
+                                <td >{{ each.12 }}</td>
+                                <td >{{ each.9 }}</td>
+                                <td >{{ each.13 }}</td>
+                                <td >{{ each.14 }}</td>
+                                <td >{{ each.15 }}</td>
+                                <td >{{ each.16 }}</td>
+                                <td >{{ each.17 }}</td>
+                            </tr>
+                             {% endfor %}
+                            </tbody>
+                            </table>
+                </div>     
+                <div id="typegender" style="overflow: scroll; overflow-y: hidden; display: none;width:auto;">
+                <table id="mytable1"  align="center">
+                    <thead id="tablehead" name="tablehead" >
+                        <tr>
+                            <th id="wid" >State</th>
+                            <th >Male</th>
+                            <th >Female</th>
+                            <th >Unknown Gender</th>
+                            <th >Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable1" name="tablebody">
+                        {% for each in result %}
+                            <tr>
+                                <td >{{ each.0 }}</td>
+                                <td >{{each.5}}</td>
+                                <td >{{each.6}}</td>
+                                <td >{{each.7}}</td>
+                                <td >{{each.8}}</td>
+                            </tr> {% endfor %}
+                            </tbody>
+                            </table>
+                 </div>
+
+                 <div id="typeexperience" style="overflow: scroll; overflow-y: hidden; display: none;">
+                <table id="mytable2"  align="center">
+                    <thead id="tablehead" name="tablehead">
+                        <tr>
+                            <th id="wid" >State</th>
+                            <th >Experience Less Than 2</th>
+                            <th >Experience in 2 to 10</th>
+                            <th >Experience Greater than 10</th>
+                            <th >Unknown Experience</th>
+                            <th >Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable2" name="tablebody">
+                        {% for each in result %}
+                            <tr>
+                                <td >{{ each.0 }}</td>
+                                <td >{{ each.10 }}</td>
+                                <td >{{ each.11 }}</td>
+                                <td >{{ each.12 }}</td>
+                                <td >{{ each.9 }}</td>
+                                <td >{{ each.8 }}</td>
+                            </tr> {% endfor %}
+                           </tbody>
+                           </table>
+                    </div> 
+                <div id="typequalification" style="overflow: scroll; overflow-y: hidden; display: none;">
+                <table id="mytable3"  align="center">
+                    <thead id="tablehead" name="tablehead">
+                        <tr>
+                            <th id="wid" >State</th>
+                            <th >Doctorate</th>
+                            <th >Postgraduate</th>
+                            <th >Graduate</th>
+                            <th >Diploma</th>
+                            <th >Others</th>
+                            <th >Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable3" name="tablebody">
+                        {% for each in result %}
+                            <tr>
+                                <td >{{ each.0 }}</td>
+                                <td >{{ each.13 }}</td>
+                                <td >{{ each.14 }}</td>
+                                <td >{{ each.15 }}</td>
+                                <td >{{ each.16 }}</td>
+                                <td >{{ each.17 }}</td>
+                                <td >{{ each.8 }}</td>
+                            </tr>  {% endfor %}
+                            </tbody>
+                           </table>
+                      </div>      
+                <div id="typegeographical" style="overflow: scroll; overflow-y: hidden; display: none;">
+                <table id="mytable5"  align="center">
+                    <thead id="tablehead" name="tablehead">
+                        <tr>
+                            <th id="wid" >State</th>
+                            <th >No of Remote Center</th>
+                            <th >No of Workshops</th>
+                            <th >No of Institute</th>
+                            <th >No of Participants</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable5" name="tablebody">
+                        {% for each in result %}
+                            <tr>
+                                <td >{{ each.0 }}</td>
+                                <td >{{ each.1 }}</td>
+                                <td >{{ each.2 }}</td>
+                                <td >{{ each.3 }}</td>
+                                <td >{{ each.4 }}</td>
+                            </tr>   {% endfor %}
+                           </tbody>
+                           </table>
+                 </div>   
+</div>   
+{% endblock %}                  

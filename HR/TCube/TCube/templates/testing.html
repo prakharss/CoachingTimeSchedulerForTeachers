@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form method="post">
+	
+  {{ message|safe }}:
+  <select name="role_testing">
+  	  <option value="1"> Normal User (RCC,FCC,Participant,AF)</option>
+  	  <option value="2">    The Business Head - Prof. Phatak </option>
+  	  <option value="3">    Assistant Course Delivery Manager (ADM) </option>
+  	  <option value="4">    Future Purpose - NA  </option>
+  	  <option value="5">    Principal Course Delivery Manager (PDM) </option>
+  	  <option value="6">    Software Team </option>
+  	  <option value="7">    Principal Faculty </option>
+  	  <option value="8">    Accounts Team </option>
+  	  <option value="9">    Principal Course Content Manager (PCM) - IITBX </option>
+  	  <option value="10">   Assistant Course Content Manager (ACM) </option>
+  </select>
+  {% csrf_token %}
+  <input type="submit" value="Create">
+</form>
+</body>
+</html>
+
+

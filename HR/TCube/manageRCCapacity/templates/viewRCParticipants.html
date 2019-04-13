@@ -1,0 +1,144 @@
+{% extends "base_2.html" %}
+
+{% load staticfiles %}
+
+{% block head_block %} 
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <link rel="stylesheet" href="{% static 'font-awesome-4.6.3/css/font-awesome.min.css' %}">
+        <style type="text/css">
+            #cancel_diagram{
+                background: red;
+            }
+            #invalid_diagram{
+                background: brown;
+            }
+            #confirm_diagram{
+                 background: green;
+            }
+            #complete_diagram{
+                background: #004d1a;
+            }
+            #accept_diagram{
+                background: purple;
+            }
+            #register_diagram{
+                background: grey;
+            }
+            #all_diagram{
+                background: black;
+            }
+        </style>
+     {% endblock %}
+
+        {% block body_block %}
+
+            <div class="tcube-be-together-section mdl-typography--text-center">
+                <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--12-col">
+                        <h1 style="font-size: 180%; color:#1E90FF;">{{wshop.workshopname}}</h1>
+                        <h1 style="font-size: 180%;">{{wshop.startdate}} to {{wshop.enddate}} </h1>
+                    <div id="flow" class="panel-body processflow collapse in">
+                    <div class="">&nbsp;</div>
+                        <div class="table-responsive">
+                            <table class="table" align="center">
+                                <tbody>
+                                    <tr class="text-center">
+                                        <td> <button id="all_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'manageRCCapacity:viewRCParticipants' wshop.workshopid 0 rcid%}'" title="Click to see participants of all statuses.">{{btn_all}}({{all}})</button></td>
+                                        <td><h5><i class="fa fa-arrow-right fa-lg text-primary"></i></h5></td>
+                                        <td> <button id="register_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'manageRCCapacity:viewRCParticipants' wshop.workshopid 1 rcid%}'" title="This status means that the participant has registered for the workshop.">{{diagram_reg}}({{rr}})</button></td>
+                                        <td><h5><i class="fa fa-arrow-right fa-lg text-primary"></i></h5></td>
+                                        <td> <button id="process_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'manageRCCapacity:viewRCParticipants' wshop.workshopid 3 rcid%}'" title="This status means that the participant has been provisionally selected.">{{diagram_process}}({{ra}})</button></td>
+                                        <td><h5><i class="fa fa-arrow-right fa-lg text-primary"></i></h5></td>
+                                        {% if wshop.categorycode == 7 %}
+                                            <td class="text-center"> <button id="accept_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'manageRCCapacity:viewRCParticipants' wshop.workshopid 7 rcid%}'" title="This status means that the participant has been accepted for the workshop.">{{diagram_accepted}}({{ac}})</button></td>
+                                            <td><h5><i class="fa fa-arrow-right fa-lg text-primary"></i></h5></td>
+                                        {% endif %}
+                                        <td><button id="confirm_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'manageRCCapacity:viewRCParticipants' wshop.workshopid 4 rcid%}'" title="This status means that the participant's selection is confirmed and he/she has logged in to IITB-X">{{btn_confirmed}}({{con}})</button></td>
+                                    </tr>
+                                    <tr class="text-center" style="line-height: 5px !important;height: 5px !important;">
+                                        <td colspan="9" style="border-top: 5px solid #428BCA !important;"></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td></td><td></td>
+                                        <td><i class="fa fa-arrow-down fa-2x text-primary"></i></td>
+                                        <td></td>
+                                        <td><i class="fa fa-arrow-down fa-2x text-primary"></i></td>
+                                        <td></td>
+                                        <td><i class="fa fa-arrow-down fa-2x text-primary"></i></td>
+                                        {% if wshop.categorycode == 7 %}
+                                            <td></td>
+                                            <td><i class="fa fa-arrow-down fa-2x text-primary"></i></td>
+                                        {% endif %}
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td></td><td></td>
+                                        <td><button id="invalid_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'manageRCCapacity:viewRCParticipants' wshop.workshopid 2 rcid%}'" title="This status means that the participant's registration is invalid.">{{btn_invalid}}({{ri}})</button></td>
+                                        <td></td>
+                                        {% if wshop.categorycode == 7 %}
+                                            <td></td>
+                                        {% endif %}
+                                        <td><button id="cancel_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'manageRCCapacity:viewRCParticipants' wshop.workshopid 6 rcid%}'" title="This status means that the participant has been cancelled.">{{diagram_cancel}}({{can}})</button></td>
+                                        <td></td>
+                                        {% if wshop.categorycode == 7 %}
+                                            <td></td>
+                                        {% endif %}
+                                        <td><button id="complete_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'manageRCCapacity:viewRCParticipants' wshop.workshopid 5 rcid%}'" title="This status means that the participant has completed the course.">{{diagram_comp}}({{com}})</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div style="width: auto; overflow-x: scroll; height: auto;" id="participantTable">
+                <br><br>
+        <table class="display1" id="participantDetail1" style="word-spacing: normal;text-wrap: avoid;" align="center">
+            <thead id = "headers" > 
+                <tr>
+                    <th>{{table_srNo}}</th>
+                    <th>{{table_pId}}</th>
+                    <th>{{table_name}}</th>
+                    <th>{{table_mobNo}}</th>
+                    <th>{{table_email}}</th>
+                    <th>{{table_gender}}</th>
+                    <th>{{table_desig}}</th>
+                    <th>{{table_remotecenterid}}</th>
+                    <th>{{table_remotecentername}}</th>
+                    <th>{{table_insName}}</th>
+                    <th >{{table_state}}</th>
+                    <th>{{table_acco}}</th>
+                    <th>{{table_status}}</th>      
+                </tr>
+            </thead>
+            <tbody align="center" id="participantDetailsBody1">
+            {% for obj in queryset %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{obj.participantid.participantid}}</td>
+                <td>{{obj.firstname}} {{obj.lastname}}</td>
+                <td>{{obj.mobNo}}</td>
+                <td>{{obj.email}}</td>
+                <td>{{obj.gender}}</td>
+                <td>{{obj.desig}}</td>
+                <td>{{rcid}}</td>
+                <td>{{rcname}}</td>
+                <td>{{obj.instituteid}}</td>
+                <td>{{obj.state}}</td>
+                <td>{{obj.accomodation}}</td>
+                <td>{{obj.status}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+            </div>
+            <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+            <script type="text/javascript">
+                $(document).ready( function () {
+                $('#participantDetail1').DataTable();
+                } );
+            </script>
+            </div>
+        </div>
+        {% endblock %}

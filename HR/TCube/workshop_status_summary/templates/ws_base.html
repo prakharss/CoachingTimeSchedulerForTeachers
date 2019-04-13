@@ -1,0 +1,590 @@
+{% load staticfiles %}
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Introducing Lollipop, a sweet new take on tcube.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <title>TCube</title>
+
+        <!-- Page styles -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href="{% static 'css/material.css' %}" rel="stylesheet">
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+      <script src="http://code.jquery.com/jquery-1.12.3.js"></script>
+      <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+      <script type="text/javascript" src="{% static 'zdp/javascript/zebra_datepicker.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'zdp/css/default.css' %}" type="text/css">
+
+
+      <!-- Javascript -->   
+      <script type="text/javascript">
+    $(document).ready(function() {
+	if (window.chrome){
+	
+	}
+	else{
+    $('#datepicker1').Zebra_DatePicker({
+     format: 'm/d/Y'
+     });
+    $('#datepicker2').Zebra_DatePicker({
+    format: 'm/d/Y'
+     });
+	}
+    });
+    </script>
+    
+      <script>
+        function fnExcelReport()
+        {
+            var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+            var textRange; var j=0;
+            tab = document.getElementById('mytable'); // id of table
+
+            for(j = 0 ; j < tab.rows.length ; j++) 
+            {     
+                tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+                //tab_text=tab_text+"</tr>";
+            }
+
+            tab_text=tab_text+"</table>";
+            tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+            tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+            tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE "); 
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+            {
+                txtArea1.document.open("txt/html","replace");
+                txtArea1.document.write(tab_text);
+                txtArea1.document.close();
+                txtArea1.focus(); 
+                sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+            }  
+            else                 //other browser not tested on IE 11
+                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+            return (sa);
+        }
+
+        function diversity_fnExcelReport()
+        {
+            var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+            var textRange; var j=0;
+            var opt =$('#groupbycr').val();
+
+            if (opt == "gender"){
+                tab = document.getElementById('mytable1'); // id of table
+            }
+            else if (opt == "experience"){
+                tab = document.getElementById('mytable2');
+            }
+            else if (opt == "qualification"){
+                tab = document.getElementById('mytable3');
+            }
+            else if (opt == "geographical"){
+                tab = document.getElementById('mytable5');
+            }
+            else {
+                tab = document.getElementById('mytable');
+            }
+
+
+            for(j = 0 ; j < tab.rows.length ; j++) 
+            {     
+                tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+                //tab_text=tab_text+"</tr>";
+            }
+
+            tab_text=tab_text+"</table>";
+            tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+            tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+            tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE "); 
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+            {
+                txtArea1.document.open("txt/html","replace");
+                txtArea1.document.write(tab_text);
+                txtArea1.document.close();
+                txtArea1.focus(); 
+                sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+            }  
+            else                 //other browser not tested on IE 11
+                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+            return (sa);
+        }
+
+
+
+        function remote_centre_fnExcelReport()
+        {
+            var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+            var textRange; var j=0;
+            var opt =$('#criteria').val();
+
+            if (opt == "gender"){
+                tab = document.getElementById('mytable1'); // id of table
+            }
+            else if (opt == "experience"){
+                tab = document.getElementById('mytable2');
+            }
+            else if (opt == "qualification"){
+                tab = document.getElementById('mytable3');
+            }
+            
+            else {
+                tab = document.getElementById('mytable');
+            }
+
+
+            for(j = 0 ; j < tab.rows.length ; j++) 
+            {     
+                tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+                //tab_text=tab_text+"</tr>";
+            }
+
+            tab_text=tab_text+"</table>";
+            tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+            tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+            tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE "); 
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+            {
+                txtArea1.document.open("txt/html","replace");
+                txtArea1.document.write(tab_text);
+                txtArea1.document.close();
+                txtArea1.focus(); 
+                sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+            }  
+            else                 //other browser not tested on IE 11
+                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+            return (sa);
+        }
+
+        function state_wise_fnExcelReport()
+        {
+            var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+            var textRange; var j=0;
+            var opt =$('#groupbystate').val();
+            
+            if (opt == "gender"){
+                tab = document.getElementById('mytable1'); // id of table
+            }
+            else if (opt == "experience"){
+                tab = document.getElementById('mytable2');
+            }
+            else if (opt == "qualification"){
+                tab = document.getElementById('mytable3');
+            }
+            
+            else {
+                tab = document.getElementById('mytable');
+            }
+
+
+            for(j = 0 ; j < tab.rows.length ; j++) 
+            {     
+                tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+                //tab_text=tab_text+"</tr>";
+            }
+
+            tab_text=tab_text+"</table>";
+            tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+            tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+            tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE "); 
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+            {
+                txtArea1.document.open("txt/html","replace");
+                txtArea1.document.write(tab_text);
+                txtArea1.document.close();
+                txtArea1.focus(); 
+                sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+            }  
+            else                 //other browser not tested on IE 11
+                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+            return (sa);
+
+        }
+
+        
+        </script>
+
+
+        <script>
+
+
+    
+         $(document).ready(function() {
+         $('#mytable').DataTable();
+         } );
+
+            function onParticipantCriteriaChange(val) {
+
+            if (val == '-1') {
+                alert('Please select the type')
+            } else if (val == 'gender') {
+                
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typestatecity").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+                document.getElementById("typegender").style.display = "inline";
+                document.getElementById("typegender").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                
+                $('#mytable1').dataTable().fnDestroy();
+                 $(document).ready(function() {
+                 $('#mytable1').DataTable();
+                } );
+                document.getElementById("heading_name").innerHTML = "Workshop Diversity Report - Gender Wise";
+
+            } else if (val == 'all') {
+                document.getElementById("typeall").style.display = "inline";
+                document.getElementById("typeall").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typestatecity").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+                document.getElementById("heading_name").innerHTML = "Workshop Diversity Report ";
+
+
+            } else if (val == 'experience') {
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typestatecity").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+                document.getElementById("typeexperience").style.display = "inline";
+                document.getElementById("typeexperience").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+               
+                $('#mytable2').dataTable().fnDestroy();
+                $(document).ready(function() {
+                 $('#mytable2').DataTable();
+                } );
+                document.getElementById("heading_name").innerHTML = "Workshop Diversity Report - Experience Wise";
+
+            } else if (val == 'qualification') {
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typestatecity").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+                document.getElementById("typequalification").style.display = "inline";
+                document.getElementById("typequalification").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                
+                $('#mytable3').dataTable().fnDestroy();
+                 $(document).ready(function() {
+                 $('#mytable3').DataTable();
+                } );
+                document.getElementById("heading_name").innerHTML = "Workshop Diversity Report - Qualification Wise";
+            } else if (val == 'state_city') {
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+                document.getElementById("typestatecity").style.display = "inline";
+                document.getElementById("typestatecity").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                
+                $('#mytable4').dataTable().fnDestroy();
+                  $(document).ready(function() {
+                 $('#mytable4').DataTable();
+                } );
+                document.getElementById("heading_name").innerHTML = "Workshop Diversity Report - State City Wise";
+
+            } else if (val == 'geographical') {
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typestatecity").style.display = "none";
+                document.getElementById("typegeographical").style.display = "inline";
+                document.getElementById("typegeographical").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                
+                $('#mytable5').dataTable().fnDestroy();
+                  $(document).ready(function() {
+                 $('#mytable5').DataTable();
+                } );
+                document.getElementById("heading_name").innerHTML = "Workshop Diversity Report - Geography Wise";
+            }
+
+        }
+
+        function onRCWiseCriteriaChange(val) {
+            if (val == '-1') {
+                alert('Please select the type')
+            } else if (val == 'gender') {
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+                document.getElementById("typegender").style.display = "inline";
+                document.getElementById("typegender").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                
+                $('#mytable1').dataTable().fnDestroy();
+                $(function () {
+                    $('#mytable1').dataTable({
+                        
+                    });
+                });
+                document.getElementById("heading_name").innerHTML = "Remote Center Wise Summary Report - Gender Wise";
+            } else if (val == 'all') {
+                document.getElementById("typeall").style.display = "inline";
+                document.getElementById("typeall").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+                document.getElementById("heading_name").innerHTML = "Remote Center Wise Summary Report";
+
+            } else if (val == 'experience') {
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+                document.getElementById("typeexperience").style.display = "inline";
+                document.getElementById("typeexperience").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                
+                $('#mytable2').dataTable().fnDestroy();
+                $(function () {
+                    $('#mytable2').dataTable({
+                        // paging: false,
+                        //searching: false 
+                    });
+                });
+                document.getElementById("heading_name").innerHTML = "Remote Center Wise Summary Report - Experience Wise";
+            } else if (val == 'qualification') {
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+                document.getElementById("typequalification").style.display = "inline";
+                document.getElementById("typequalification").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                
+                $('#mytable3').dataTable().fnDestroy();
+                $(function () {
+                    $('#mytable3').dataTable({
+                        // paging: false,
+                        //searching: false 
+                    });
+                });
+                document.getElementById("heading_name").innerHTML = "Remote Center Wise Summary Report - Qualification Wise";
+            } else if (val == 'geographical') {
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typegeographical").style.display = "inline";
+                document.getElementById("typegeographical").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                
+                $('#mytable5').dataTable().fnDestroy();
+                $(function () {
+                    $('#mytable5').dataTable({
+                        // paging: false,
+                        //searching: false 
+                    });
+                });
+                document.getElementById("heading_name").innerHTML = "Remote Center Wise Summary Report - Geography Wise";
+            }
+        }
+
+        function onStateCriteriaChange(val) {
+            if (val == '-1') {
+                alert('Please select the type');
+                document.getElementById("heading_name").innerHTML = "Remote Center Wise Summary Report";
+            } else if (val == 'gender') {
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+                document.getElementById("typegender").style.display = "inline";
+                document.getElementById("typegender").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                /*$('#mytable1').dataTable().fnDestroy();
+                 $(document).ready(function () {
+                 $('#mytable1').dataTable({
+                 // paging: false,
+                 //searching: false                                                                                             "scrollX": true
+                 });
+                 });*/
+                $('#mytable1').dataTable().fnDestroy();
+                $(function () {
+                    $('#mytable1').dataTable({
+                        // paging: false,
+                        //searching: false 
+                    });
+                });
+                document.getElementById("heading_name").innerHTML = "State Wise Summary Report - Gender Wise";
+            } else if (val == 'all') {
+                document.getElementById("typeall").style.display = "inline";
+                document.getElementById("typeall").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+
+                document.getElementById("heading_name").innerHTML = "State Wise Summary Report - Gender Wise";
+            } else if (val == 'experience') {
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+                document.getElementById("typeexperience").style.display = "inline";
+                document.getElementById("typeexperience").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                /*$('#mytable2').dataTable().fnDestroy();
+                 $(document).ready(function () {
+                 $('#mytable2').dataTable({
+                 // paging: false,
+                 //searching: false                                                                                             "scrollX": true
+                 });
+                 });*/
+                $('#mytable2').dataTable().fnDestroy();
+                $(function () {
+                    $('#mytable2').dataTable({
+                        // paging: false,
+                        //searching: false 
+                    });
+                });
+                document.getElementById("heading_name").innerHTML = "State Wise Summary Report - Experience Wise";
+            } else if (val == 'qualification') {
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typegeographical").style.display = "none";
+                document.getElementById("typequalification").style.display = "inline";
+                document.getElementById("typequalification").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                /*$('#mytable3').dataTable().fnDestroy();
+                 $(document).ready(function () {
+                 $('#mytable3').dataTable({
+                 // paging: false,
+                 //searching: false                                                                                             "scrollX": true
+                 });
+                 });*/
+                $('#mytable3').dataTable().fnDestroy();
+                $(function () {
+                    $('#mytable3').dataTable({
+                        // paging: false,
+                        //searching: false 
+                    });
+                });
+                document.getElementById("heading_name").innerHTML = "State Wise Summary Report - Qualification Wise";
+            } else if (val == 'geographical') {
+                document.getElementById("typeall").style.display = "none";
+                document.getElementById("typegender").style.display = "none";
+                document.getElementById("typeexperience").style.display = "none";
+                document.getElementById("typequalification").style.display = "none";
+                document.getElementById("typegeographical").style.display = "inline";
+                document.getElementById("typegeographical").setAttribute("style", "overflow: scroll; overflow-y: hidden;");
+                /*$('#mytable5').dataTable().fnDestroy();
+                 $(document).ready(function () {
+                 $('#mytable5').dataTable({
+                 // paging: false,
+                 //searching: false                                                                                             "scrollX": true
+                 });
+                 });*/
+                $('#mytable5').dataTable().fnDestroy();
+                $(function () {
+                    $('#mytable5').dataTable({
+                        // paging: false,
+                        //searching: false 
+                    });
+                });
+            }
+        }
+
+        
+        </script>
+        <style>
+            #view-source {
+                position: fixed;
+                display: block;
+                right: 0;
+                bottom: 0;
+                margin-right: 40px;
+                margin-bottom: 40px;
+                z-index: 900;
+            }
+        </style>
+
+
+    </head>
+    <body>
+
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+            <div class="tcube-header mdl-layout__header mdl-layout__header--waterfall">
+                <div class="mdl-layout__header-row">
+                    <span class="tcube-title mdl-layout-title">
+                    <a href="/" style="text-decoration:none;color:#fff;">   <b> TCube                   </b></a>
+                    </span>
+                    <!-- Add spacer, to align navigation to the right in desktop -->
+                    <div class="tcube-header-spacer mdl-layout-spacer"></div>
+                    
+                    <!-- Navigation -->
+                    <div class="tcube-navigation-container">
+                        <nav class="tcube-navigation mdl-navigation">
+                 
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'report:show_reports' %}">Reports</a>
+                            
+                        </nav>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+
+            
+            <div class="tcube-content mdl-layout__content">
+                
+                       <div id="content" style="position:absolute;left:0%;width:100%;" >
+                             {% block content %} {% endblock %}
+                       </div>
+
+                </div>    
+                 {% block footer %} 
+                <footer class="tcube-footer mdl-mini-footer">
+                    <div class="mdl-mini-footer--left-section">            
+                        <p class="mdl-typography--font-light">Hit Count</p>              
+                    </div> 
+                    <div class="mdl-mini-footer--middle-section">
+                        <p class="mdl-typography--font-light">TCube: © 2016, IIT Bombay</p>
+                        <p class="mdl-typography--font-light">Designed and developed by software team</p>
+                    </div>
+                </footer>
+                {% endblock %}
+            </div>
+        </div>
+        <script src="{% static 'js/validfile_upload.js' %}"></script>
+        <script src="{% static 'js/material.min.js' %}"></script>
+          <script>
+         
+        function search_yearwise() {
+        var start_date = document.getElementById("datepicker1").value;
+        var end_date = document.getElementById("datepicker2").value;
+        window.open("?sd=" + start_date + "&ed=" + end_date + "", "_self");
+        }
+
+        
+      </script>
+       
+    </body>
+</html>

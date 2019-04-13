@@ -1,0 +1,233 @@
+              {% extends 'base_1.html' %}
+            {% load staticfiles %}
+
+            {% block head_block %}                
+              <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+             <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+             <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+                <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+                <script>
+            function changeText(imageid, displayid) {
+                var srcTest = document.getElementById(imageid).src;
+                if (srcTest.indexOf("plus.png") > -1) {
+                    document.getElementById(displayid).style.display = "block";
+                    {% load staticfiles %}
+                    document.getElementById(imageid).src = "{% static 'images/minus.png' %}";
+                } else {
+                    document.getElementById(displayid).style.display = "none";
+                    {% load staticfiles %}
+                    document.getElementById(imageid).src = "{% static 'images/plus.png' %}";
+                }
+            }
+        </script>
+            {% endblock %}
+
+            {% block body_block %}
+                
+               
+
+                     <!--   <div class="tcube-content mdl-layout__content">
+                        <a name="top"></a>  -->
+                        
+                            <!-- <div class="tcube-be-together-section mdl-typography--text-center">-->
+                                <div class="mdl-grid">
+                                    <!--<div class="mdl-cell mdl-cell--1-col"></div>-->
+                                   <div class="mdl-cell mdl-cell--8-col">
+ <h1 style="color: #1E90FF;font-size: 220%;">Workshops Statistics</h1>
+                <br>
+                <div style="padding: 5px;">  
+                    <table class="" style="font-size: 120%" border="black 1px">
+                        <tr><td>Total Workshops Conducted : </td><td>{{tot}}</td>
+                        </tr>
+                            <tr></tr>
+                            <tr></tr>
+                        <tr><td>Total Coordinator Workshops Conducted :</td><td>{{cws}}</td>
+                        </tr>
+                            <tr></tr>
+                            <tr></tr>
+                        <tr><td>Total Main Workshops Conducted :</td><td>{{mws}}</td>
+                        </tr>
+                            <tr></tr>
+                            <tr></tr>
+                        <tr><td>Total Self Sustained Main Workshops Conducted :</td><td>{{ssws}}</td>
+                        </tr>
+                        <tr></tr>
+                    </table>  
+                </div>
+                <br>
+
+        <h1  style="color: #1E90FF;font-size: 165%;">Coordinators Workshop
+                            {% load staticfiles %}
+            <img id="imgshow8" class="plus_button" src="{% static 'images/plus.png' %}" onclick="changeText('imgshow8', 'managerpart1');" style="width:2.2%; height:2.2%;"></h1>
+
+                <br>
+                    <div id="managerpart1" style="display:none;">
+                                <br><br>            
+                                <table id="partcipantDetail1" class="display1" width="100%" cellspacing="0">
+                                    
+                                    <thead id="headers" style="font-size:120%">
+                                        <tr>
+                                    <th style="text-align: center;">S. No</th>
+                                    <th class="sortable-text" style="text-align: center;" scope="col">Workshop Title</th>
+                                            <th class="sortable-text" style="text-align: center;">Teacher</th>
+                                            <th class="sortable-text" style="text-align: center;">Start Date</th>
+                                            <th class="sortable-text" style="text-align: center;">End Date</th> 
+                                           <th class="sortable-text" style="text-align: center;">Downloads</th>
+                                            <th class="sortable-text" style="text-align: center;">Status</th>      
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                    {% for obj in coordinatorw %}
+                                        
+                                        <tr>
+                                            <td style="text-align: center;">{{forloop.counter}}</td>
+        <td style="text-align: center;"><a href='{% url "allworkshops:aboutworkshop" wsid=obj.workshopid %}'>{{ obj.workshopname }}</a></td>
+                                            <td style="text-align: center;">{{ obj.teachingfaculty | safe}}</td>
+                                            <td style="text-align: center;">{{ obj.startdate }}</td>
+                                            <td style="text-align: center;">{{ obj.enddate }}</td> 
+        <td style="text-align: center;"><a href='{% url "allworkshops:downloadoption" wsid=obj.workshopid %}'>View/Download</a></td>
+                                            <td style="text-align: center;">{{ obj.eventstatus }}</td>
+                                        </tr> 
+                                        
+                                            {% endfor %}
+                                    </tbody>
+                                </table>
+                    </div>
+
+
+                                    <br>
+
+        <p style="color: #1E90FF; font-size:165%;">Main Workshops
+                            {% load staticfiles %}
+            <img id="imgshow9" class="plus_button" src="{% static 'images/plus.png' %}" onclick="changeText('imgshow9', 'managerpart2');" style="width:2.2%; height:2.2%;"></p>
+                
+                <br>
+                    <div id="managerpart2" style="display:none;">
+                                <br><br>            
+                                <table id="partcipantDetail2" class="display1" width="100%" cellspacing="0">
+                                    
+                                    <thead id="headers" style="font-size:120%">
+                                        <tr>
+                                    <th style="text-align: center;">S. No</th>
+                                    <th class="sortable-text" style="text-align: center;" scope="col">Workshop Title</th>
+                                            <th class="sortable-text" style="text-align: center;">Teacher</th>
+                                            <th class="sortable-text" style="text-align: center;">Start Date</th>
+                                            <th class="sortable-text" style="text-align: center;">End Date</th> 
+                                           <th class="sortable-text" style="text-align: center;">Downloads</th>
+                                            <th class="sortable-text" style="text-align: center;">Status</th>      
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                    {% for obj in mainw %}
+                                        
+                                        <tr>
+                                            <td style="text-align: center;">{{forloop.counter}}</td>
+        <td style="text-align: center;"><a href='{% url "allworkshops:aboutworkshop" wsid=obj.workshopid %}'>{{ obj.workshopname }}</a></td>
+                                            <td style="text-align: center;">{{ obj.teachingfaculty | safe}}</td>
+                                            <td style="text-align: center;">{{ obj.startdate }}</td>
+                                            <td style="text-align: center;">{{ obj.enddate }}</td> 
+            <td style="text-align: center;"><a href='{% url "allworkshops:downloadoption" wsid=obj.workshopid %}'>View/Download</a></td>
+                                            <td style="text-align: center;">{{ obj.eventstatus }}</td>
+                                        </tr> 
+                                        
+                                            {% endfor %}
+
+                                    </tbody>
+                                </table>
+                    </div>
+
+
+                            <br>
+
+        <p  style="color: #1E90FF; font-size:165%;">Self Sustained Main Workshops
+                            {% load staticfiles %}
+            <img id="imgshow10" class="plus_button" src="{% static 'images/plus.png' %}" onclick="changeText('imgshow10', 'managerpart3');" style="width:2.2%; height:2.2%;"></p>
+                
+                <br>
+                    <div id="managerpart3" style="display:none;">
+                                <br><br>            
+                                <table id="partcipantDetail3" class="display1" width="100%" cellspacing="0">
+                                    
+                                    <thead id="headers" style="font-size:120%">
+                                        <tr>
+                                    <th style="text-align: center;">S. No</th>
+                                    <th class="sortable-text" style="text-align: center;" scope="col">Workshop Title</th>
+                                            <th class="sortable-text" style="text-align: center;">Teacher</th>
+                                            <th class="sortable-text" style="text-align: center;">Start Date</th>
+                                            <th class="sortable-text" style="text-align: center;">End Date</th> 
+                                           <th class="sortable-text" style="text-align: center;">Downloads</th>
+                                            <th class="sortable-text" style="text-align: center;">Status</th>      
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                    {% for obj in selfsustainedw %}
+                                         
+                                        <tr>
+                                            <td style="text-align: center;">{{forloop.counter}}</td>
+        <td style="text-align: center;"><a href='{% url "allworkshops:aboutworkshop" wsid=obj.workshopid %}'>{{ obj.workshopname }}</a></td>
+                                            <td style="text-align: center;">{{ obj.teachingfaculty | safe}}</td>
+                                            <td style="text-align: center;">{{ obj.startdate }}</td>
+                                            <td style="text-align: center;">{{ obj.enddate }}</td> 
+            <td style="text-align: center;"><a href='{% url "allworkshops:downloadoption" wsid=obj.workshopid %}'>View/Download</a></td>
+                                            <td style="text-align: center;">{{ obj.eventstatus }}</td>
+                                        </tr> 
+                                    
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                    </div>
+
+
+                                </div>
+
+                                    <div class="mdl-cell mdl-cell--1-col"></div>
+                                    <div class="mdl-cell mdl-cell--3-col">
+                                        <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                                            <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                                                <p class="title-white">Important News</p>
+                                            </div>
+                                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                                Test News .. 
+                                            </div>             
+                                        </div>
+                                        <br/>
+                                        <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                                            <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                                                <p class="title-white">Important News</p>
+                                            </div>
+                                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                                Test News .. 
+                                            </div>             
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                           
+                            <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+                        <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+                        <script type="text/javascript">
+                            $(document).ready( function () {
+                                $('#partcipantDetail1').DataTable();
+                            } );
+                        </script>
+                        <script type="text/javascript">
+                            $(document).ready( function () {
+                                $('#partcipantDetail2').DataTable();
+                            } );
+                        </script>
+                        <script type="text/javascript">
+                            $(document).ready( function () {
+                                $('#partcipantDetail3').DataTable();
+                            } );
+                        </script>
+
+                          
+                            <br>
+                        
+                    
+                    <script src="{% static "material.min.js" %}"></script>
+              
+                        {% endblock %}

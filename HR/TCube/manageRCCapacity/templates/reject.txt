@@ -1,0 +1,14 @@
+Welcome to TCube
+
+Dear {{name}},
+
+Your registration for {{wsname}} is invalid for the following reason(s).
+{{message}}
+If you wish to change your remote center, you can change/update the same by logging to your TCube account and choose the new remote center. 
+On updating, your registration status will be changed to "Registered".
+If you do not wish to attend the STTP, then please do not update your registration. We will cancel your registration in due course of time.
+
+Thanks and Regards,
+The TCube Team  
+
+This is system generated email. Please do not reply to this message; it was sent from an un-monitored email address. This message is a service email related to your use of TCube account. For general enquiries or to request support with your TCube account, please visit us at . Contact Us . 

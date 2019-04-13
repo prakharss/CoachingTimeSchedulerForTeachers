@@ -1,0 +1,184 @@
+{% extends "base_2.html" %}
+
+    {% block head_block %}
+<!--<!DOCTYPE HTML>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Introducing Lollipop, a sweet new take on tcube.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <title>TCube</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        {% load staticfiles %}
+            <link rel="stylesheet" href="{% static 'css/material.css' %}">
+    	{% load staticfiles %}
+            <link rel="stylesheet" href="{% static 'css/style.css' %}">-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+       {% endblock %}
+
+    {% block body_block %}
+        <!--</head>
+    <body>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <div class="tcube-header mdl-layout__header mdl-layout__header--waterfall">
+             <div class="mdl-layout__header-row">
+                    <span class="tcube-title mdl-layout-title">
+                        TCube                         
+                    </span>
+                    <div class="tcube-header-spacer mdl-layout-spacer"></div>
+                    <div class="tcube-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width">
+                        <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
+                            <i class="material-icons">search</i>
+                        </label>
+                        <div class="mdl-textfield__expandable-holder">
+                            <input class="mdl-textfield__input" type="text" id="search-field">
+                        </div>
+                    </div>
+                    <div class="tcube-navigation-container">
+                        <nav class="tcube-navigation mdl-navigation">
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                        </nav>
+                    </div>
+                    <span class="tcube-mobile-title mdl-layout-title">TCube                         
+                    </span>
+                    <button class="tcube-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+                        <i class="material-icons">test</i>
+                    </button>
+                    <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+                        <li class="mdl-menu__item">test</li>
+                        <li class="mdl-menu__item">test</li>
+                        <li disabled class="mdl-menu__item">test</li>
+                        <li class="mdl-menu__item">test</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tcube-drawer mdl-layout__drawer">
+                <span class="mdl-layout-title">
+                    TCube
+                </span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <div class="tcube-drawer-separator"></div>
+                    <span class="mdl-navigation__link" href="">test</span>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <div class="tcube-drawer-separator"></div>
+                    <span class="mdl-navigation__link" href="">test</span>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <div class="tcube-drawer-separator"></div>
+                    <span class="mdl-navigation__link" href="">test</span>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                </nav>
+            </div>
+        <div class="tcube-content mdl-layout__content">
+            <a name="top"></a>-->
+            <div class="tcube-be-together-section mdl-typography--text-center">
+                <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--8-col">
+                        <h1 style="font-size: 180%; color:#1E90FF; text-align: center;">{{wshop.workshopname}}</h1>
+                        <h1 style="font-size: 180%; text-align: center;">{{wshop.startdate}} to {{wshop.enddate}} </h1>
+                        <h1 style="font-size: 150%; color:#1E90FF; text-align: center;">{{programsched_heading}}</h1>
+                        <br>
+                        
+                        <div style="width: auto; overflow-x: scroll; height: auto;">
+				        <br><br>
+				        <table class="display1" id="programschedule" style="word-spacing: normal;text-wrap: avoid;" align="center">
+				            <thead id = "headers" > 
+				                <tr>
+				                    <th>{{table_Date}}</th>
+				                    <th>{{table_time}}</th>
+				                    <th>{{table_topic}}</th>   
+				                </tr>
+				            </thead>
+				            <tbody align="center" id="programschedBody">
+				            {% for obj in queryset %}
+				            <tr>
+				                <td>{{obj.date}}</td>
+				                <td>{{obj.time_from}}-{{obj.time_to}}</td>
+				                <td>{{obj.comments}}</td>
+				            </tr>
+				            {% endfor %}
+				            </tbody>
+				        </table>
+				        <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+			            <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+			            <script type="text/javascript">
+			                $(document).ready( function () {
+			                $('#programschedule').DataTable();
+			                } );
+			            </script>
+            			</div>
+            	</div>
+            <div class="mdl-cell mdl-cell--1-col"></div>
+            <div class="mdl-cell mdl-cell--3-col">
+                        <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                            <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                                <p class="title-white">Important News</p>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                Test News .. 
+                            </div>             
+                        </div>
+                        <br/>
+                        <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                            <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                                <p class="title-white">Important News</p>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                Test News .. 
+                            </div>             
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+            <script type="text/javascript">
+                $(document).ready( function () {
+                $('#workshops').DataTable();
+                $('#remoteCenters').DataTable();
+                $('#participants').DataTable();
+                $('#participantsDetails').DataTable();
+                } );
+            </script>  
+            {% endblock %}  
+        <!--<footer class="tcube-footer mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">            
+                <p class="mdl-typography--font-light">Hit Count</p>              
+            </div> 
+            <div class="mdl-mini-footer--middle-section">
+                <p class="mdl-typography--font-light">TCube: © 2016, IIT Bombay</p>
+                <p class="mdl-typography--font-light">Designed and developed by software team</p>
+            </div>
+        </footer>
+        </div>
+        </div>
+        </div>
+        {% load staticfiles %}
+        <script src="{% static 'js/material.min.js' %}"></script>
+    </body>
+    </html>-->
+        

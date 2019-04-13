@@ -1,0 +1,516 @@
+
+#msform {
+	width: 100%;
+	margin: 50px auto;
+	text-align: center;
+	position: relative;
+}
+#msform fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 80%;
+	margin: 0 10%;
+	
+	/*stacking fieldsets above each other*/
+	position: relative;
+}
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+	display: none;
+}
+/*inputs*/
+/*#msform input, #msform textarea {
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+	font-size: 13px;
+}*/
+/*buttons*/
+#msform .action-button {
+	width: 100px;
+	background: #27AE60;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+#msform .action-button:hover, #msform .action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+/*headings*/
+.fs-title {
+	font-size: 15px;
+	text-transform: uppercase;
+	color: #2C3E50;
+	margin-bottom: 10px;
+}
+.fs-subtitle {
+	font-weight: normal;
+	font-size: 13px;
+	color: #666;
+	margin-bottom: 20px;
+}
+/*progressbar*/
+#progressbar {
+	margin-bottom: 30px;
+	overflow: hidden;
+	/*CSS counters to number the steps*/
+	counter-reset: step;
+}
+#progressbar li {
+	list-style-type: none;
+	color: black;
+	font-size: 15px;
+	width: 25%;
+	float: left;
+	position: relative;
+}
+#progressbar li:before {
+	content: counter(step);
+	counter-increment: step;
+	width: 24px;
+    height: 24px;
+    margin: 0 auto;
+    background-color: #9E9E9E;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+	display: block;
+}
+/*progressbar connectors*/
+#progressbar li:after {
+	content: '';
+	width: 100%;
+	height: 2px;
+	background: white;
+	position: absolute;
+	left: -50%;
+	top: 9px;
+	z-index: -1; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+	/*connector not needed before the first step*/
+	content: none; 
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before,  #progressbar li.active:after{
+	background-color: rgb(33, 150, 243);
+	color: white;
+}
+
+    .mdl-card1 {
+        width: 100%;
+        min-height: 0;
+        margin: 10px auto;
+    }
+
+    .mdl-card1__supporting-text {
+        width: 100%;
+        padding: 0;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step {
+        width: 25%;
+        /* 100 / no_of_steps */
+    }
+
+
+    /* Begin actual mdl-stepper css styles */
+
+    .mdl-stepper-horizontal-alternative {
+        display: table;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step {
+        display: table-cell;
+        position: relative;
+        padding: 24px;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step:hover,
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step:active {
+        background-color: rgba(0, 0, 0, .06);
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step:active {
+        border-radius: 15% / 75%;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step:first-child:active {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step:last-child:active {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step:hover .mdl-stepper-circle {
+        background-color: #757575;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step:first-child .mdl-stepper-bar-left,
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step:last-child .mdl-stepper-bar-right {
+        display: none;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step .mdl-stepper-circle {
+        width: 24px;
+        height: 24px;
+        margin: 0 auto;
+        background-color: #9E9E9E;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 2em;
+        font-size: 12px;
+        color: white;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step.active-step .mdl-stepper-circle {
+        background-color: rgb(33, 150, 243);
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step.step-done .mdl-stepper-circle:before {
+        content: "\2714";
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step.step-done .mdl-stepper-circle *,
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step.editable-step .mdl-stepper-circle * {
+        display: none;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step.editable-step .mdl-stepper-circle {
+        -moz-transform: scaleX(-1);
+        /* Gecko */
+        -o-transform: scaleX(-1);
+        /* Opera */
+        -webkit-transform: scaleX(-1);
+        /* Webkit */
+        transform: scaleX(-1);
+        /* Standard */
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step.editable-step .mdl-stepper-circle:before {
+        content: "\270E";
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step .mdl-stepper-title {
+        margin-top: 16px;
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step .mdl-stepper-title,
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step .mdl-stepper-optional {
+        text-align: center;
+        color: rgba(0, 0, 0, .26);
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step.active-step .mdl-stepper-title {
+        font-weight: 500;
+        color: rgba(0, 0, 0, .87);
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step.active-step.step-done .mdl-stepper-title,
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step.active-step.editable-step .mdl-stepper-title {
+        font-weight: 300;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step .mdl-stepper-optional {
+        font-size: 9px;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step.active-step .mdl-stepper-optional {
+        color: rgba(0, 0, 0, .54);
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step .mdl-stepper-bar-left,
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step .mdl-stepper-bar-right {
+        position: absolute;
+        top: 36px;
+        height: 1px;
+        border-top: 1px solid #BDBDBD;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step .mdl-stepper-bar-right {
+        right: 0;
+        left: 50%;
+        margin-left: 20px;
+    }
+
+    .mdl-stepper-horizontal-alternative .mdl-stepper-step .mdl-stepper-bar-left {
+        left: 0;
+        right: 50%;
+        margin-right: 20px;
+    }
+
+    h1, a, li {
+        font-family: Roboto, sans-serif;
+    }
+
+    h1 {
+        font-size: 26px;
+        background: #9b50ba;
+        color: white;
+        padding: 40px 0 40px 20%;
+        margin-bottom: 50px;
+    }
+
+    a, li {
+        color: #6b6b6b;
+        text-decoration: none;
+    }
+
+    .nav {
+        margin-left: 20%;
+    }
+    .nav > li {
+        display: inline-block;
+        padding: 1em 18px;
+        cursor: pointer;
+    }
+    .nav > li:hover {
+        background: #ebebeb;
+    }
+
+    .drop {
+        position: relative;
+    }
+    .drop ul {
+        position: absolute;
+        left: 0;
+        top: 3em;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+    }
+    .drop ul li {
+        display: block;
+        width: 100%;
+    }
+    .drop ul li a {
+        width: 100%;
+        padding: 1em 18px;
+        display: inline-block;
+        white-space: pre;
+        box-sizing: border-box;
+    }
+    .drop ul li a:hover {
+        background: #ebebeb;
+    }
+    .drop:hover ul {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    .follow {
+        width: 42px;
+        height: 42px;
+        border-radius: 50px;
+        background: #03A9F4;
+        display: block;
+        margin: 300px auto 0;
+        white-space: nowrap;
+        padding: 13px;
+        box-sizing: border-box;
+        color: white;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+        font-family: Roboto, sans-serif;
+        text-decoration: none;
+        box-shadow: 0 5px 6px 0 rgba(0, 0, 0, 0.2);
+    }
+    .follow i {
+        margin-right: 20px;
+        -webkit-transition: margin-right 0.2s ease;
+        transition: margin-right 0.2s ease;
+    }
+    .follow:hover {
+        width: 134px;
+    }
+    .follow:hover i {
+        margin-right: 10px;
+    }
+
+    @media screen and (max-width: 800px) {
+        .follow {
+          margin: 400px auto 0;
+      }
+  }
+
+
+  .mdl-select {
+    position: relative;
+    font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 300px;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 0;
+}
+
+.mdl-select__input {
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0, 0.12);
+    display: inline-block;
+    font-size: 16px;
+    margin: 0;
+    padding: 4px 0;
+    width: 100%;
+    background: 16px;
+    text-align: left;
+    color: inherit;
+}
+
+.mdl-select.is-focused .mdl-select__input { outline: none; }
+.mdl-select.is-invalid .mdl-select__input { 
+    border-color: rgb(222, 50, 38);
+    box-shadow: none;
+}
+
+.mdl-select.is-disabled .mdl-select__input {
+    background-color: transparent;
+    border-bottom: 1px dotted rgba(0,0,0, 0.12);
+}
+
+.mdl-select__label {
+    bottom: 0;
+    color: rgba(0,0,0, 0.26);
+    font-size: 16px;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 24px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left; 
+}
+
+.mdl-select.is-dirty .mdl-select__label { visibility: hidden; }
+
+.mdl-select--floating-label .mdl-textfield__label {
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mdl-select--floating-label.is-focused .mdl-select__label,
+.mdl-select--floating-label.is-dirty .mdl-select__label {
+    color: rgb(63,81,181);
+    font-size: 12px;
+    top: 4px;
+    visibility: visible;
+}
+
+.mdl-select--floating-label.is-focused .mdl-select__expandable-holder .mdl-select__label,
+.mdl-select--floating-label.is-dirty .mdl-select__expandable-holder .mdl-select__label {
+    top: -16px;
+}
+
+.mdl-select--floating-label.is-invalid .mdl-select__label {
+    color: rgb(222, 50, 38);
+    font-size: 12px;
+}
+
+.mdl-select__label:after {
+    background-color: rgb(63,81,181);
+    bottom: 20px;
+    content: '';
+    height: 2px;
+    left: 45%;
+    position: absolute;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden;
+    width: 10px;
+}
+
+.mdl-select.is-focused .mdl-select__label:after {
+    left: 0;
+    visibility: visible;
+    width: 100%; 
+}
+
+.mdl-select.is-invalid .mdl-select__label:after {
+    background-color: rgb(222, 50, 38); 
+}
+
+.mdl-select__error {
+    color: rgb(222, 50, 38);
+    position: absolute;
+    font-size: 12px;
+    margin-top: 3px;
+    visibility: hidden;
+}
+
+.mdl-select.is-invalid .mdl-select__error {
+    visibility: visible;
+}
+
+.mdl-select__expandable-holder {
+    display: inline-block;
+    position: relative;
+    margin-left: 32px;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+    max-width: 0.1px; 
+}
+
+.mdl-select.is-focused .mdl-select__expandable-holder, .mdl-select.is-dirty .mdl-select__expandable-holder {
+    max-width: 600px; 
+}
+
+.mdl-select__expandable-holder .mdl-select__label:after {
+    bottom: 0;
+}
+
+.file_input_div {
+    width: 250px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.file_input {
+    float: left;
+}
+
+#file_input_text_div {
+    width: 200px;
+    margin-top: -8px;
+    margin-left: 5px;
+}
+
+.none {
+    display: none;
+}
+

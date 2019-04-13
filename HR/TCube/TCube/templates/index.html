@@ -1,0 +1,59 @@
+<!-- This is an index which extends the base template base_2 . -->
+
+{% extends 'base_1.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col" style="height: 500px; width: 100%; background: #F3F3F3; background-size:cover; background-image: url('{% static "images/Front-Page-Design_With_02.png" %}');">
+     <h2 style="color: white;">Train The Teacher</h2>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col"></div>
+    <div class="mdl-cell mdl-cell--7-col">
+        <img class="tcube-logo-image" src={% static "images/1111.gif" %}/> 
+        <p> Form </p>
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="sample1">
+                <label class="mdl-textfield__label" for="sample1">Text...</label>
+            </div>
+
+            <br/><br/>
+
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
+                <label class="mdl-textfield__label" for="sample2">Number...</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+            <br/><br/>
+            <!-- Colored raised button -->
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                Button
+            </button>
+        </form>
+    </div>
+    
+    <div class="mdl-cell mdl-cell--3-col">
+        <div class="demo-card-square mdl-card mdl-shadow--2dp">
+
+            <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                <p class="title-white">Important News</p>
+            </div>
+            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                Test News .. 
+            </div>             
+        </div>
+        <br/>
+        <div class="demo-card-square mdl-card mdl-shadow--2dp">
+
+            <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                <p class="title-white">Important News</p>
+            </div>
+            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                Test News .. 
+            </div>             
+        </div>
+    </div> 
+                          
+</div>
+{% endblock %}

@@ -1,0 +1,561 @@
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+body {
+  margin: 0;
+}
+
+/* Disable ugly boxes around images in IE10 */
+a img{
+  border: 0px;
+}
+
+::-moz-selection {
+  background-color: #1152b2;
+  color: #fff;
+}
+
+
+
+::selection {
+  background-color: #1152b2;
+  color: #fff;
+}
+
+.title_tcube{
+ color: #1681c6;
+}
+
+.title-white{
+  color:white;
+  /*font-weight:bold;*/
+  font-size:18px;
+}
+
+.tcube-search-box .mdl-textfield__input {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.tcube-header .mdl-menu__container {
+  z-index: 50;
+  margin: 0 !important;
+}
+
+
+.mdl-textfield--expandable {
+  width: auto;
+}
+
+.tcube-fab {
+  position: absolute;
+  right: 20%;
+  bottom: -26px;
+  z-index: 3;
+  background: #64ffda !important;
+  color: black !important;
+}
+
+.tcube-mobile-title {
+  display: none !important;
+}
+
+
+.tcube-logo-image {
+  height: 50px;
+  width: 50px;
+}
+
+
+.tcube-header {
+  overflow: visible;
+  background-color: white;
+}
+
+  .tcube-header .material-icons {
+    /*color: #767777 !important;*/
+    color: #FFF !important;
+  }
+
+  .tcube-header .mdl-layout__drawer-button {
+    background: transparent;
+    color: #767777;
+  }
+
+  .tcube-header .mdl-navigation__link {
+    /*color: #757575;*/
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .tcube-navigation-container {
+    /* Simple hack to make the overflow happen to the left instead... */
+    direction: rtl;
+    order: 1;
+    width: 500px;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .tcube-navigation {
+    /* ... and now make sure the content is actually LTR */
+    direction: ltr;
+    justify-content: flex-end;
+    width: 800px;
+  }
+
+  .tcube-search-box.is-focused + .tcube-navigation-container {
+    opacity: 0;
+    width: 100px;
+  }
+
+
+  .tcube-navigation .mdl-navigation__link {
+    display: inline-block;
+    height: 60px;
+    line-height: 68px;
+    background-color: transparent !important;
+    border-bottom: 4px solid transparent;
+  }
+
+    .tcube-navigation .mdl-navigation__link:hover {
+      /*border-bottom: 4px solid #3a9bda;
+      border-bottom: 4px solid #32bd12;*/
+      border-bottom: 4px solid #FFFFFF;
+      
+    }
+
+  .tcube-search-box {
+    order: 2;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .tcube-more-button {
+    order: 3;
+  }
+
+
+.tcube-drawer {
+  border-right: none;
+}
+
+  .tcube-drawer-separator {
+    height: 1px;
+    background-color: #dcdcdc;
+    margin: 8px 0;
+  }
+
+  .tcube-drawer .mdl-navigation__link.mdl-navigation__link {
+    font-size: 14px;
+    color: #757575;
+  }
+
+  .tcube-drawer span.mdl-navigation__link.mdl-navigation__link {
+    color: #1152b2;
+  }
+
+  .tcube-drawer .mdl-layout-title {
+    color:white;
+    position: relative;
+    background: #1152b2;
+    height: 70px;
+    
+  }
+
+    .tcube-drawer .tcube-logo-image {
+      position: absolute;
+      bottom: 16px;
+    }
+
+.tcube-be-together-section {
+  position: relative;
+  height: 800px;
+  width: auto;
+  background-color: #f3f3f3;
+  /*background: url('images/slide01.jpg') center 30% no-repeat;*/
+  background-size: cover;
+}
+
+.logo-font {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1;
+  color: #767777;
+  font-weight: 500;
+}
+
+.tcube-slogan {
+  font-size: 60px;
+  padding-top: 160px;
+}
+
+.tcube-sub-slogan {
+  font-size: 21px;
+  padding-top: 24px;
+}
+
+.tcube-create-character {
+  font-size: 21px;
+  padding-top: 400px;
+}
+
+  .tcube-create-character a {
+    text-decoration: none;
+    color : #767777 ;
+    /* color: #767777; */
+    font-weight: 300;
+  }
+
+.tcube-screen-section {
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+
+.tcube-screens {
+  text-align: right;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.tcube-screen {
+  text-align: center;
+}
+
+.tcube-screen .tcube-link {
+  margin-top: 16px;
+  display: block;
+  z-index: 2;
+}
+
+.tcube-image-link {
+  text-decoration: none;
+}
+
+.tcube-wear {
+  display: inline-block;
+  width: 160px;
+  margin-right: 32px;
+}
+
+  .tcube-wear .tcube-screen-image {
+    width: 40%;
+    z-index: 1;
+  }
+
+
+.tcube-phone {
+  display: inline-block;
+  width: 64px;
+  margin-right: 48px;
+}
+
+  .tcube-phone .tcube-screen-image {
+    width: 100%;
+    z-index: 1;
+  }
+
+
+.tcube-tablet {
+  display: inline-block;
+  width: 110px;
+  margin-right: 64px;
+}
+
+  .tcube-tablet .tcube-screen-image {
+    width: 100%;
+    z-index: 1;
+  }
+
+  .tcube-tablet .tcube-link {
+    display: block;
+    z-index: 2;
+  }
+
+
+.tcube-tv {
+  display: inline-block;
+  width: 300px;
+  margin-right: 80px;
+}
+
+  .tcube-tv .tcube-screen-image {
+    width: 100%;
+    z-index: 1;
+  }
+
+
+.tcube-auto {
+  display: inline-block;
+  width: 300px;
+  overflow: hidden;
+}
+
+  .tcube-auto .tcube-screen-image {
+    display: block;
+    height: 300px;
+    z-index: 1;
+  }
+
+
+.tcube-wear-section {
+  position: relative;
+  background: url('images/wear.png') center top no-repeat;
+  background-size: cover;
+  height: 800px;
+}
+
+.tcube-wear-band {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #37474f;
+}
+
+.tcube-wear-band-text {
+  max-width: 800px;
+  margin-left: 25%;
+  padding: 24px;
+  text-align: left;
+  color: white;
+}
+
+  .tcube-wear-band-text p {
+    padding-top: 8px;
+  }
+
+.tcube-link {
+  text-decoration: none;
+  color: #1152b2 !important;
+}
+
+  .tcube-link:hover {
+    color: #7cb342 !important;
+  }
+
+  .tcube-link .material-icons {
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+  }
+
+.tcube-alt-link {
+  text-decoration: none;
+  color: #64ffda !important;
+  font-size: 16px;
+}
+
+  .tcube-alt-link:hover {
+    color: #00bfa5 !important;
+  }
+
+  .tcube-alt-link .material-icons {
+    position: relative;
+    top: 6px;
+  }
+
+.tcube-customized-section {
+  text-align: center;
+}
+
+.tcube-customized-section-text {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 80px 16px 0 16px;
+}
+
+  .tcube-customized-section-text p {
+    padding-top: 16px;
+  }
+
+.tcube-customized-section-image {
+  /*background: url('images/devices.jpg') center top no-repeat;*/
+  background-size: cover;
+  height: 400px;
+}
+
+.tcube-more-section {
+  padding: 80px 0;
+  max-width: 1044px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  .tcube-more-section .tcube-section-title {
+    margin-left: 12px;
+    padding-bottom: 24px;
+  }
+
+.tcube-card-container {
+}
+
+  .tcube-card-container .mdl-card__media {
+    overflow: hidden;
+    background: transparent;
+  }
+
+    .tcube-card-container .mdl-card__media img {
+      width: 100%;
+    }
+
+  .tcube-card-container .mdl-card__title {
+    background: transparent;
+    height: auto;
+  }
+
+  .tcube-card-container .mdl-card__title-text {
+    color: black;
+    height: auto;
+  }
+
+  .tcube-card-container .mdl-card__supporting-text {
+    height: auto;
+    color: black;
+    padding-bottom: 56px;
+  }
+
+  .tcube-card-container .mdl-card__actions {
+    color:white;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .tcube-card-container .mdl-card__actions a {
+    color:white;
+    border-top: none;
+    font-size: 16px;
+  }
+
+.tcube-footer {
+  background-color: #fafafa;
+  position: relative;
+}
+
+  .tcube-footer a:hover {
+    color: #1152b2;
+  }
+
+  .tcube-footer .mdl-mega-footer--top-section::after {
+    border-bottom: none;
+  }
+
+  .tcube-footer .mdl-mega-footer--middle-section::after {
+    border-bottom: none;
+  }
+
+  .tcube-footer .mdl-mega-footer--bottom-section {
+    position: relative;
+  }
+
+  .tcube-footer .mdl-mega-footer--bottom-section a {
+    margin-right: 2em;
+  }
+
+  .tcube-footer .mdl-mega-footer--right-section a .material-icons {
+    position: relative;
+    top: 6px;
+  }
+
+
+.tcube-link-menu:hover {
+  cursor: pointer;
+}
+
+
+/**** Mobile layout ****/
+@media (max-width: 900px) {
+  .tcube-navigation-container {
+    display: none;
+  }
+
+  .tcube-title {
+    /*display: none !important; */
+  }
+
+  .tcube-mobile-title {
+    display: block !important;
+    position: absolute;
+    left: calc(50% - 70px);
+    top: 12px;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* WebViews in iOS 9 break the "~" operator, and WebViews in OS X 10.10 break
+     consecutive "+" operators in some cases. Therefore, we need to use both
+     here to cover all the bases. */
+  .tcube.tcube-search-box.is-focused ~ .tcube-mobile-title,
+  .tcube-search-box.is-focused + .tcube-navigation-container + .tcube-mobile-title {
+    opacity: 0;
+  }
+
+  .tcube-more-button {
+    display: none;
+  }
+
+  .tcube-search-box.is-focused {
+    width: calc(100% - 48px);
+  }
+
+  .tcube-search-box .mdl-textfield__expandable-holder {
+    width: 100%;
+  }
+
+  .tcube-be-together-section {
+    height: 350px;
+  }
+
+  .tcube-slogan {
+    font-size: 26px;
+    margin: 0 16px;
+    padding-top: 24px;
+  }
+
+  .tcube-sub-slogan {
+    font-size: 16px;
+    margin: 0 16px;
+    padding-top: 8px;
+  }
+
+  .tcube-create-character {
+    padding-top: 200px;
+    font-size: 16px;
+  }
+
+  .tcube-create-character img {
+    height: 12px;
+  }
+
+  .tcube-fab {
+    display: none;
+  }
+
+  .tcube-wear-band-text {
+    margin-left: 0;
+    padding: 16px;
+  }
+
+  .tcube-footer .mdl-mega-footer--bottom-section {
+    display: none;
+  }
+}
+
+.img-circle {
+    border-radius: 50%;
+}

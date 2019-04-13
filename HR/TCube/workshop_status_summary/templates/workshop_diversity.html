@@ -1,0 +1,263 @@
+{% extends "ws_base.html" %}
+{% load staticfiles %}
+
+{% block title %}Workshop Status Summary{% endblock %}
+
+
+{% block content %} 
+<style>
+      td {
+        padding: 0px;
+        margin: 0px;               
+        }
+    table {
+        display: block;
+    }
+    
+ </style> 
+<div >
+            <div style="padding-left: 15px; padding-right: 15px; text-align: center;color:#4775d1;"><h3 id="heading_name"><b>Workshop Diversity Report</b> </h3></div>
+
+            <div style="text-align: center; margin-top:  0px;">
+
+                <p>
+
+                <form method="POST">
+                {% csrf_token %}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style="font-size: 15px;">Group By Criteria :</span>
+                    <select id="groupbycr" class="displayselect" onchange="onParticipantCriteriaChange(this.value)">
+                        <option value="-1">-- select the type--</option>
+                        <option  value="gender">Gender-Wise</option>
+                        <option  value="experience">Experience-Wise</option>
+                        <option  value="qualification">Qualification-Wise</option>
+                        <option  value="geographical">Geographical-Wise</option>
+                        <option  value="all">All</option>
+                    </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span style="font-size: 18px;">Start Year(MM/dd/YYYY):<sup><i class="material-icons" style="font-size: 18px; color : red;">star</i></sup></span>
+                    
+                    <input type="date" style="width: 100px; background: white; border: none;"  id="datepicker1" name="startdate" onblur="">
+                    &nbsp;&nbsp;
+                    <span style="font-size: 18px;">End Year(MM/dd/YYYY) :<sup><i class="material-icons" style="font-size: 18px; color : red;">star</i></span>
+                    <input type="date" style="width: 100px; background: white; border: none;"  id="datepicker2" name="enddate" onblur="">
+                    
+                    &nbsp;&nbsp;
+                    <input id="sbutton"  type="submit" value="search" /><br><br>
+                    <br><br><br>
+					<span style="font-size: 18px;">Export Excel</span> <button class="btn btn-success" id="btnExport" onclick="diversity_fnExcelReport();"><img style="height:35px;width:35px" src="{% static 'images/excel.png' %}"/></button>
+                    <iframe id="txtArea1" style="display:none"></iframe>
+                     </form>
+                </p>
+            </div> 
+            <div style="width:90%;background:#FFF;overflow:none;" >
+            <div id="typeall" >
+                <table id="mytable" style="width:90%;overflow-x:scroll;">
+                    <thead id="tablehead" name="tablehead">
+                        <tr>
+                            <th colspan="2" ></th>
+                            <th colspan="4" >Geographical Diversity</th>
+                            <th colspan="3" >Gender</th>
+                            <th colspan="4" >Experience (in years)</th>
+                            <th colspan="5" >Qualification</th>
+                            <th colspan="2" ></th>
+                        </tr>
+                        <tr>
+                            <td style="display: none;" >S No</td>
+                            <th id="wid" >WID</th> 
+                            <th >Workshop Name</th> 
+                            <th >No of Remote Center</th> 
+                            <th >No of Inst itute </th> 
+                            <th >City</th> 
+                            <th >State</th> 
+                            <th >M</th> 
+                            <th >F</th> 
+                            <th >other </th> 
+                            <th > < 2</th> 
+                            <th >2-10</th> 
+                            <th >> 10</th> 
+                            <th >Unknown </th> 
+                            <th >Doctorate</th> 
+                            <th >Post grad.</th> 
+                            <th >Grad.</th> 
+                            <th >Dip.</th> 
+                            <th >Other</th> 
+                            <th >Total Partici pants</th> 
+                        </tr>
+                    </thead>
+                    <tbody id="mytablebody" name="tablebody">
+                        {% for each in result %}
+                            <tr id="session_">
+                                <td style="display: none;" >S No</td>
+                                <td >{{ each.0 }}</td>
+                                <td >{{ each.1 }}</td>
+                                <td >{{ each.3 }}</td>
+                                <td >{{ each.4 }}</td>
+                                <td >{{ each.5 }}</td>
+                                <td >{{ each.6 }}</td>
+                                <td >{{ each.10 }}</td>
+                                <td >{{ each.7 }}</td>
+                                <td >{{ each.8 }}</td>
+                                <td >{{ each.12 }}</td>
+                                <td >{{ each.13 }}</td>
+                                <td >{{ each.14 }}</td>
+                                <td >{{ each.11 }}</td>
+                                <td >{{ each.15 }}</td>
+                                <td >{{ each.16 }}</td>
+                                <td >{{ each.17 }}</td>
+                                <td >{{ each.18 }}</td>
+                                <td >{{ each.19 }}</td>
+                                <td >{{ each.9 }}</td>
+                            </tr>
+                             {% endfor %} 
+                    </tbody>
+                </table>
+         </div>
+         <div id="typegender" style="display: none;overflow-x:none;">
+                <table id="mytable1" align="center">
+                    <thead id="tablehead" name="tablehead">
+                        <tr>
+                            <th style="display: none;" >S No</th>
+                            <th id="wid" >Workshop ID</th>
+                            <th >Workshop Name</th>
+                            <th >Male</th>
+                            <th >Female</th>
+                            <th >Other</th>
+                            <th >Total Participants</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable1" name="tablebody">
+                        {% for each in result %}
+                            <tr>
+                                <td style="display: none;" >S No</td>
+                                <td >{{ each.0 }}</td>
+                                <td >{{ each.1 }}</td>
+                                <td >{{ each.10 }}</td>
+                                <td ">{{ each.7 }}</td>
+                                <td ">{{ each.8 }}</td>
+                                <td ">{{ each.9 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+        </div>
+         <div id="typeexperience" style="display: none;overflow-x:none;">
+                <table id="mytable2"  align="center">
+                    <thead id="tablehead" name="tablehead">
+                        <tr>
+                            <th style="display: none;" >S No</th>
+                            <th  id="wid">Workshop ID</th>
+                            <th >Workshop Name</th>
+                            <th ">Less Than 2</th>
+                            <th ">2 to 10</th>
+                            <th ">Greater than 10</th>
+                            <th ">Unknown </th>
+                            <th ">Total Participants</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable2" name="tablebody">
+                        {% for each in result %}
+                            <tr>
+                                <td style="display: none;" >S No</td>
+                                <td >{{ each.0 }}</td>
+                                <td >{{ each.1 }}</td>
+                                <td ">{{ each.12 }}</td>
+                                <td ">{{ each.13 }}</td>
+                                <td ">{{ each.14 }}</td>
+                                <td ">{{ each.11 }}</td>
+                                <td ">{{ each.9 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                </table>               
+        </div>
+        <div id="typequalification" style="display: none;overflow-x:none;">
+                <table id="mytable3"  align="center">
+                    <thead id="tablehead" name="tablehead">
+                        <tr>
+                            <th  style="display: none;">S No</th>
+                            <th  id="wid">Workshop ID</th>
+                            <th >Workshop Name</th>
+                            <th ">Doctorate</th>
+                            <th ">Postgraduate</th>
+                            <th ">Graduate</th>
+                            <th ">Diploma</th>
+                            <th ">Others</th>
+                            <th ">Total Participants</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable3" name="tablebody">
+                        {% for each in result %}
+                            <tr>
+                                <td  style="display: none;">S No</td>
+                                <td >{{ each.0 }}</td>
+                                <td >{{ each.1 }}</td>
+                                <td ">{{ each.15 }}</td>
+                                <td ">{{ each.16 }}</td>
+                                <td ">{{ each.17 }}</td>
+                                <td ">{{ each.18 }}</td>
+                                <td ">{{ each.19 }}</td>
+                                <td ">{{ each.9 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                       </table>
+         </div>               
+         <div id="typestatecity" style="display: none;overflow-x:none;" >
+                <table id="mytable4"  align="center">
+                    <thead id="tablehead" name="tablehead">
+                        <tr>
+                            <th style="display: none;" >S No</th>
+                            <th id="wid" >Workshop ID</th>
+                            <th >Workshop Name</th>
+                            <th ">City</th>
+                            <th ">State</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable4" name="tablebody">
+                        {% for each in result %}
+                            <tr>
+                                <td  style="display: none;">S No</td>
+                                <td >{{ each.0 }}</td>
+                                <td >{{ each.1 }}</td>
+                                <td ">{{ each.5 }}</td>
+                                <td ">{{ each.6 }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                    </table>
+            </div>
+            <div id="typegeographical" style="display: none;overflow-x:none;">
+                <table id="mytable5"  align="center">
+                    <thead id="tablehead" name="tablehead">
+                        <tr>
+                            <th style="display: none;" >S No</th>
+                            <th id="wid" >Workshop ID</th>
+                            <th >Workshop Name</th>
+                            <th ">No of Remote Center</th>
+                            <th ">No of Institute </th>
+                            <th ">No of City</th>
+                            <th ">No of State</th>
+                            <th ">Total Participants</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable5" name="tablebody">
+                        {% for each in result %}
+                            <tr>
+                                <td style="display: none;" >S No</td>
+                                <td >{{ each.0 }}</td>
+                                <td >{{ each.1 }}</td>
+                                <td ">{{ each.3 }}</td>
+                                <td ">{{ each.4 }}</td>
+                                <td ">{{ each.5 }}</td>
+                                <td ">{{ each.6 }}</td>
+                                <td ">{{ each.9 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+             </div>    
+             </div>
+
+</div>   
+{% endblock %} 

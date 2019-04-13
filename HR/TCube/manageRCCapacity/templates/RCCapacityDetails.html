@@ -1,0 +1,152 @@
+{% extends "base_2.html" %}
+
+    {% block head_block %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript">
+        function formReset() {
+            //document.getElementById('seats').reset();
+            location.reload();
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#seats').parent().removeClass('is-invalid');
+        });
+    </script>
+    <script type="text/javascript">
+       //$('#btnSubmit').click(function(){
+        function formSubmit(wsid,rcid){ 
+            $.ajax({
+                   type: "GET",
+                   url:"/manageRCCapacity/fillSeats",                                             
+                   data:{wsid:wsid,rcid:rcid,seats:$('#seats').val(),acco:$('#acco').val(),accoCost:$('#accoCost').val(),foodCost:$('#foodCost').val(),fcc:$('#fcc').val()},    
+                   contentType: "application/json; charset=utf-8",                    
+                   datatype: 'json',
+                   success: function(result)                                          
+                        {   
+                            if(result.selected_qs==""){
+                                //document.getElementById("emailError").value("This email-id is not registered.");
+                                alert("This email-id is not registered.");
+                                //document.getElementById('emailError').display="inline";
+                            } 
+                            if(result.selected_qs1.length!=0){
+                                alert("This email-id is registered at some other remote center.");
+                            }
+                            else{
+                                saveData({{workshopid}},{{rcid}});
+                            }
+                        }
+                    });
+        }
+        function saveData(wsid,rcid){
+            $.ajax({
+                   type: "GET",
+                   url:"/manageRCCapacity/capacityFilled",                                             
+                   data:{wsid:wsid,rcid:rcid,seats:$('#seats').val(),acco:$('#acco').val(),accoCost:$('#accoCost').val(),foodCost:$('#foodCost').val(),fcc:$('#fcc').val()},    
+                   contentType: "application/json; charset=utf-8",                    
+                   datatype: 'json',
+                   success: function(result)                                          
+                        {   
+                            alert("Updated Successfully.")
+                            var urlstr=window.location.href;
+                            var pos=urlstr.indexOf('/RCCInterface.html/')+19;
+                            var urlString=urlstr.slice(0,pos);
+                            window.location.href=urlString;
+                        }
+                    });
+        }
+    </script>
+    {% endblock %}
+
+    {% block body_block %}
+        <div class="tcube-be-together-section mdl-typography--text-center">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--1-col"></div>
+                <div class="mdl-cell mdl-cell--4-col">
+                    <h1 style="font-size: 180%; color:#1E90FF;">{{displayRCDetails_heading}}</h1>
+                    <br><br><br><br>
+                        {% if objects != 0 %}
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="number" id="seats" name="seats" value={{objects.available_seats}} autocomplete="off" required/>
+                                <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_seats}}</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="number" id="acco" name="acco" value={{objects.available_accomo}} autocomplete="off" required/>
+                                <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_acco}}</label>
+                            </div>
+    	                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    	                        <input class="mdl-textfield__input" type="number" id="accoCost" name="accoCost" value={{objects.acco_cost}} autocomplete="off" required/>
+    	                        <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_accoCost}}</label>
+    	                    </div>
+    	                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    	                        <input class="mdl-textfield__input" type="number" id="foodCost" name="foodCost" value={{objects.food_cost}} autocomplete="off" required/>
+    	                        <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_foodCost}}</label>
+    	                    </div>
+    	                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    	                        <input class="mdl-textfield__input" type="email" id="fcc" name="fcc" value={{fcc}} autocomplete="off" required/>
+    	                        <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_fcc}}</label>
+    	                    </div>
+                            <br/><br/>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="btnSubmit" name="btnSubmit" onclick="formSubmit({{workshopid}},{{rcid}})">
+                                {{update_btn}}
+                            </button>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" onclick="formReset()">
+                                {{btn_reset}}
+                            </button>
+                        {% else %}
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="number" id="seats" name="seats" autocomplete="off" required/>
+                                <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_seats}}</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="number" id="acco" name="acco" autocomplete="off" required/>
+                                <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_acco}}</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="number" id="accoCost" name="accoCost" autocomplete="off" required/>
+                                <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_accoCost}}</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="number" id="foodCost" name="foodCost" autocomplete="off" required/>
+                                <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_foodCost}}</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="email" id="fcc" name="fcc" autocomplete="off" required/>
+                                <label class="mdl-textfield__label" for="sample1" style="font-size:100%;">{{rcCapacityDetails_fcc}}</label>
+                            </div>
+                            <br/><br/>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="btnSubmit" name="btnSubmit" onclick="formSubmit({{workshopid}},{{rcid}})">
+                                {{btn_submit}}
+                            </button>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" onclick="formReset()">
+                                {{btn_reset}}
+                            </button>
+                        {% endif %}
+                            </div>
+                        
+                <div class="mdl-cell mdl-cell--3-col"></div>
+                <div class="mdl-cell mdl-cell--2-col">
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                            <p class="title-white">Important News</p>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            Test News .. 
+                        </div>             
+                    </div>
+                    <br/>
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                            <p class="title-white">Important News</p>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            Test News .. 
+                        </div>             
+                    </div>
+                </div>
+            </div>
+        </div>    
+    {% endblock %}

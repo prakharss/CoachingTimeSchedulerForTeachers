@@ -1,0 +1,184 @@
+{% load staticfiles %}
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Introducing Lollipop, a sweet new take on tcube.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <title>TCube</title>
+
+        <!-- Page styles -->
+        <link rel="stylesheet" href={% static "css/font-families.css" %} >
+        <link rel="stylesheet" href={% static "css/material_icons.css" %} >
+        <link rel="stylesheet" href={% static "css/material.css" %} >
+        <link rel="stylesheet" href={% static "css/style.css" %} >
+        <style>
+            #view-source {
+                position: fixed;
+                display: block;
+                right: 0;
+                bottom: 0;
+                margin-right: 40px;
+                margin-bottom: 40px;
+                z-index: 900;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+            <div class="tcube-header mdl-layout__header mdl-layout__header--waterfall">
+                <div class="mdl-layout__header-row">
+                    <span class="tcube-title mdl-layout-title">
+                        TCube                         
+                    </span>
+                    <!-- Add spacer, to align navigation to the right in desktop -->
+                    <div class="tcube-header-spacer mdl-layout-spacer"></div>
+                    <div class="tcube-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width">
+                        <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
+                            <i class="material-icons">search</i>
+                        </label>
+                        <div class="mdl-textfield__expandable-holder">
+                            <input class="mdl-textfield__input" type="text" id="search-field">
+                        </div>
+                    </div>
+                    <!-- Navigation -->
+                    <div class="tcube-navigation-container">
+                        <nav class="tcube-navigation mdl-navigation">
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">About_Us</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">FDPs_Conducted</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Library</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Contact_Us</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                        </nav>
+                    </div>
+                    <span class="tcube-mobile-title mdl-layout-title">TCube                         
+                    </span>
+                    <button class="tcube-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+                        <i class="material-icons">account_circle</i>
+                    </button>
+                    <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+                        <li class="mdl-menu__item">test</li>
+                        <li class="mdl-menu__item">test</li>
+                        <li disabled class="mdl-menu__item">test</li>
+                        <li class="mdl-menu__item">test</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tcube-drawer mdl-layout__drawer">
+                <span class="mdl-layout-title">
+                    TCube
+                </span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="">About_Us</a>
+                    <a class="mdl-navigation__link" href="">FDPs_Conducted</a>
+                    <a class="mdl-navigation__link" href="">Library</a>
+                    <a class="mdl-navigation__link" href="">Contact_Us</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <div class="tcube-drawer-separator"></div>
+                    <span class="mdl-navigation__link" href="">test</span>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <div class="tcube-drawer-separator"></div>
+                    <span class="mdl-navigation__link" href="">test</span>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <div class="tcube-drawer-separator"></div>
+                    <span class="mdl-navigation__link" href="">test</span>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                </nav>
+            </div>
+
+            <main class="mdl-layout__content tcube-content">           
+
+                <a name="top"></a>
+                
+
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--2-col"></div>
+                        <div class="mdl-cell mdl-cell--7-col">
+
+                            <p> Form </p>
+                            <form action="#">
+                                <div class="mdl-textfield mdl-js-textfield">
+                                    <input class="mdl-textfield__input" type="text" id="sample1">
+                                    <label class="mdl-textfield__label" for="sample1">Text...</label>
+                                </div>
+
+                                <br/><br/>
+
+                                <div class="mdl-textfield mdl-js-textfield">
+                                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
+                                    <label class="mdl-textfield__label" for="sample2">Number...</label>
+                                    <span class="mdl-textfield__error">Input is not a number!</span>
+                                </div>
+                                <br/><br/>
+                                <!-- Colored raised button -->
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                    Button
+                                </button>
+                            </form>
+                        </div>
+                        <div class="mdl-cell mdl-cell--3-col">
+                            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+
+                                <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                                    <p class="title-white">Important News</p>
+                                </div>
+                                <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                    Test News .. 
+                                </div>             
+                            </div>
+                            <br/>
+                            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+
+                                <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                                    <p class="title-white">Important News</p>
+                                </div>
+                                <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                    Test News .. 
+                                </div>             
+                            </div>
+                        </div>                        
+                    </div>                 
+
+                <footer class="tcube-footer mdl-mini-footer">
+                    <div class="mdl-mini-footer--left-section">            
+                        <p class="mdl-typography--font-light">Hit Count</p>              
+                    </div> 
+                    <div class="mdl-mini-footer--middle-section">
+                        <p class="mdl-typography--font-light">TCube: © 2016, IIT Bombay</p>
+                        <p class="mdl-typography--font-light">Designed and developed by software team</p>
+                    </div>
+                </footer>                
+
+            </main>
+            <script src={% static "js/material.min.js" %}></script>
+    </body>
+</html>

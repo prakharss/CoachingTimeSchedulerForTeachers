@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h2 class="panel-title">
+			Slots assigned
+		</h2>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			{% for obj in obj_accept %}
+				<div class="col-xs-3">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								Booking Confirmed
+							</h4>
+						</div>
+						<ul class="list-group">
+        					<li class="list-group-item">Day: {{obj.day}}</li>
+        					<li class="list-group-item">Slot: {{obj.slotid}}</li>
+        					<li class="list-group-item">Start Time: {{obj.time}}</li>
+        				</ul>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+
+		{% if chk == 1 %}
+			<div class="row">
+		    	{% for obj in obj_ignore %}
+		        	<div class="col-xs-3">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									Booking Denied
+								</h4>
+							</div>
+							<ul class="list-group">
+	        					<li class="list-group-item">Day: {{obj.day}}</li>
+	        					<li class="list-group-item">Slot: {{obj.slotid}}</li>
+	        					<li class="list-group-item">Start: {{obj.time}}</li>
+	        				</ul>
+	        				<div class="panel-footer">
+	        					Already Booked<br>
+	        					Name: {{obj.studentname}}<br>
+	        					Email: {{obj.studentemail}}
+	        				</div>
+						</div>
+					</div>
+		    	{% endfor %}
+		    </div>
+		{% endif %}
+	</div>
+	<div class="panel-footer">
+		Thanks for the submission<br>
+		<a href="/student/{{username}}/">Click here to review your bookings or to book more sessions with your tutor</a>
+	</div>
+{% endblock %}

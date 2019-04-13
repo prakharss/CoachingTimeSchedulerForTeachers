@@ -1,0 +1,511 @@
+{% extends "base.html" %}
+{% block title %}Student{% endblock %}
+{% block head %}
+    Schedule your Session
+    <style>
+    table
+    {
+        table-layout:fixed;
+    }
+    td, th {
+        text-align: center;
+        border:1px solid #EEEEEE;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            Instructions
+        </h2>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">Provide your name and email address in personal details section before submitting your response</li>
+        <li class="list-group-item">Tick the check box to book your slot and check properly before submitting your response as the changes are irrevertible</li>
+        <li class="list-group-item">To see which slot is booked by you check out the email addresses by clicking on the red buttons</li>
+        <li class="list-group-item">For any query and changes mail to <a href= "mailto:{{email}}">{{email}}</a></li>
+    </ul>
+    <div class="panel-body text-center">
+        <h3>------| Book your slot |------</h3>
+    </div>
+    <form class="form form-horizontal" method="post" action="{%url 'student:submit_student' username %}">
+        {% csrf_token %} 
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                            Personal Details
+                        </h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-6 col-sm-offset-3">
+                                {{ form.as_p }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="panel-body text-center">
+        <h3>Your's Teacher Schedule</h3>
+    </div>
+        <table class="table table-responsive">
+            <tr>
+                <th class="active">Day</th>
+                <th class="active">Slot 1</th>
+                <th class="active">Slot 2</th>
+                <th class="active">Slot 3</th>
+                <th class="active">Slot 4</th>
+                <th class="active">Slot 5</th>
+                <th class="active">Slot 6</th>
+            </tr>
+            <tr>
+                <th class="active">Monday</th>
+                {% if stu.0.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.0.bookingstatus == 0 %}
+                        <td class="success">{{stu.0.time}} <input type="checkbox" name="mon1" value="1"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.0.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.0.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.1.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.1.bookingstatus == 0 %}
+                        <td class="success"> {{stu.1.time}} <input type="checkbox" name="mon2" value="2"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.1.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.1.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.2.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.2.bookingstatus == 0 %}
+                        <td class="success">{{stu.2.time}} <input type="checkbox" name="mon3" value="3"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.2.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.2.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.3.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.3.bookingstatus == 0 %}
+                        <td class="success">{{stu.3.time}} <input type="checkbox" name="mon4" value="4"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.3.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.3.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.4.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.4.bookingstatus == 0 %}
+                        <td class="success">{{stu.4.time}} <input type="checkbox" name="mon5" value="5"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.4.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.4.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.5.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.5.bookingstatus == 0 %}
+                        <td class="success">{{stu.5.time}} <input type="checkbox" name="mon6" value="6"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.5.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.5.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th class="active">Tuesday</th>
+                {% if stu.6.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.6.bookingstatus == 0 %}
+                        <td class="success">{{stu.6.time}} <input type="checkbox" name="tue1" value="1"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.6.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.6.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.7.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.7.bookingstatus == 0 %}
+                        <td class="success">{{stu.7.time}} <input type="checkbox" name="tue2" value="2"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.7.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.7.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.8.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}  
+                    {% if stu.8.bookingstatus == 0 %}
+                        <td class="success">{{stu.8.time}} <input type="checkbox" name="tue3" value="3"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.8.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.8.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.9.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.9.bookingstatus == 0 %}
+                        <td class="success">{{stu.9.time}} <input type="checkbox" name="tue4" value="4"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.9.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.9.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.10.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.10.bookingstatus == 0 %}
+                        <td class="success">{{stu.10.time}} <input type="checkbox" name="tue5" value="5"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.10.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.10.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.11.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.11.bookingstatus == 0 %}
+                        <td class="success">{{stu.11.time}} <input type="checkbox" name="tue6" value="6"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.11.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.11.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th class="active">Wednesday</th>
+                {% if stu.12.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.12.bookingstatus == 0 %}
+                        <td class="success">{{stu.12.time}} <input type="checkbox" name="wed1" value="1"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.12.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.12.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.13.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.13.bookingstatus == 0 %}
+                        <td class="success">{{stu.13.time}} <input type="checkbox" name="wed2" value="2"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.13.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.13.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.14.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.14.bookingstatus == 0 %}
+                        <td class="success">{{stu.14.time}} <input type="checkbox" name="wed3" value="3"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.14.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.14.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.15.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.15.bookingstatus == 0 %}
+                        <td class="success">{{stu.15.time}} <input type="checkbox" name="wed4" value="4"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.15.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.15.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.16.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.16.bookingstatus == 0 %}
+                        <td class="success">{{stu.16.time}} <input type="checkbox" name="wed5" value="5"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.16.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.16.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.17.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.17.bookingstatus == 0 %}
+                        <td class="success">{{stu.17.time}} <input type="checkbox" name="wed6" value="6"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.17.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.17.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+
+            <tr>
+                <th class="active">Thursday</th>
+                {% if stu.18.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.18.bookingstatus == 0 %}
+                        <td class="success">{{stu.18.time}} <input type="checkbox" name="thu1" value="1"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.18.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.18.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.19.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.19.bookingstatus == 0 %}
+                        <td class="success">{{stu.19.time}} <input type="checkbox" name="thu2" value="2"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.19.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.19.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.20.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %} 
+                    {% if stu.20.bookingstatus == 0 %}
+                        <td class="success">{{stu.20.time}} <input type="checkbox" name="thu3" value="3"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.20.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.20.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.21.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.21.bookingstatus == 0 %}
+                        <td class="success">{{stu.21.time}} <input type="checkbox" name="thu4" value="4"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.21.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.21.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.22.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.22.bookingstatus == 0 %}
+                        <td class="success">{{stu.22.time}} <input type="checkbox" name="thu5" value="5"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.22.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.22.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.23.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.23.bookingstatus == 0 %}
+                        <td class="success">{{stu.23.time}} <input type="checkbox" name="thu6" value="6"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.23.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.23.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+
+            <tr>
+                <th class="active">Friday</th>
+                {% if stu.24.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.24.bookingstatus == 0 %}
+                        <td class="success">{{stu.24.time}} <input type="checkbox" name="fri1" value="1"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.24.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.24.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.25.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.25.bookingstatus == 0 %}
+                        <td class="success">{{stu.25.time}} <input type="checkbox" name="fri2" value="2"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.25.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.25.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.26.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}  
+                    {% if stu.26.bookingstatus == 0 %}
+                        <td class="success">{{stu.26.time}} <input type="checkbox" name="fri3" value="3"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.26.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.26.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.27.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.27.bookingstatus == 0 %}
+                        <td class="success">{{stu.27.time}} <input type="checkbox" name="fri4" value="4"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.27.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.27.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.28.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.28.bookingstatus == 0 %}
+                        <td class="success">{{stu.28.time}} <input type="checkbox" name="fri5" value="5"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.28.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.28.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.29.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.29.bookingstatus == 0 %}
+                        <td class="success">{{stu.29.time}} <input type="checkbox" name="fri6" value="6"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.29.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.29.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+
+            <tr>
+                <th class="active">Saturday</th>
+                {% if stu.30.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.30.bookingstatus == 0 %}
+                        <td class="success">{{stu.30.time}} <input type="checkbox" name="sat1" value="1"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.30.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.30.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.31.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.31.bookingstatus == 0 %}
+                        <td class="success">{{stu.31.time}} <input type="checkbox" name="sat2" value="2"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.31.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.31.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.32.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}  
+                    {% if stu.32.bookingstatus == 0 %}
+                        <td class="success">{{stu.32.time}} <input type="checkbox" name="sat3" value="3"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.32.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.32.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.33.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.33.bookingstatus == 0 %}
+                        <td class="success">{{stu.33.time}} <input type="checkbox" name="sat4" value="4"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.33.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.33.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.34.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.34.bookingstatus == 0 %}
+                        <td class="success">{{stu.34.time}} <input type="checkbox" name="sat5" value="5"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.34.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.34.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.35.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.35.bookingstatus == 0 %}
+                        <td class="success">{{stu.35.time}} <input type="checkbox" name="sat6" value="6"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.35.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.35.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+
+            <tr>
+                <th class="active">Sunday</th>
+                {% if stu.36.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.36.bookingstatus == 0 %}
+                        <td class="success">{{stu.36.time}} <input type="checkbox" name="sun1" value="1"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.36.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.36.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.37.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.37.bookingstatus == 0 %}
+                        <td class="success">{{stu.37.time}} <input type="checkbox" name="sun2" value="2"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.37.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.37.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.38.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}   
+                    {% if stu.38.bookingstatus == 0 %}
+                        <td class="success">{{stu.38.time}} <input type="checkbox" name="sun3" value="3"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.38.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.38.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.39.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.39.bookingstatus == 0 %}
+                        <td class="success">{{stu.39.time}} <input type="checkbox" name="sun4" value="4"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.39.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.39.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.40.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.40.bookingstatus == 0 %}
+                        <td class="success">{{stu.40.time}} <input type="checkbox" name="sun5" value="5"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.40.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.40.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+
+                {% if stu.41.time == '' %}
+                    <td class="warning">NA</td>
+                {% else %}
+                    {% if stu.41.bookingstatus == 0 %}
+                        <td class="success">{{stu.41.time}} <input type="checkbox" name="sun6" value="6"> Book</td>
+                    {% else %}
+                        <td class="danger"><div class="dropdown"><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{stu.41.time}}<span class="caret"></span></button><ul class="dropdown-menu"><li class="text-center">{{stu.41.studentemail}}</li></ul></div></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+            <tr>
+                <td colspan="7">
+                    <button class="btn btn-primary" type="submit" value="Submit">
+                        Submit
+                    </button>
+                </td>
+            </tr>                                                                                                                                           
+        </table>
+    </form>
+
+{% endblock %}

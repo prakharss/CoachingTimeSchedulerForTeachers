@@ -1,0 +1,149 @@
+{% extends "base_2.html" %}
+    {% block head_block %}  <!-- head block starts here -->  
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>             
+        <script>
+               function changeWorkshopId(obj){
+                //var urlString = "http://127.0.0.1:8000/manageRCCapacity/manageRCCapacity.html/";
+                    var urlstr=window.location.href;
+                    var pos=urlstr.indexOf(".html/")+6;
+                    var urlString=urlstr.slice(0,pos);
+                    var selectedWorkshop = obj.options[obj.selectedIndex];
+                    if (selectedWorkshop.value != -1){
+                        window.location = urlString + selectedWorkshop.value;
+                    }
+                }
+                
+                function sendMail(wsname){
+                    var urlstr=window.location.href;
+                    var pos1=urlstr.indexOf(".html/")+6;
+                    var pos2=urlstr.indexOf("/",pos1);
+                    var wsid=urlstr.slice(pos1,pos2);
+                    $.ajax({
+                   url: "{% url 'manageRCCapacity:sendMail_RCCapacity' %}" + "?&wsid="+wsid,
+                   type: "GET",
+                   dataType: 'json',
+                   traditional: true,
+                   success: function(result){
+                        alert("Mail has been sent.");
+                        location.reload();
+                   }
+                });
+                }
+        </script>
+        
+    {% endblock %}
+
+    {% block body_block %}
+                <div class="tcube-be-together-section mdl-typography--text-center">
+
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--12-col">
+        <h1 style="color: #1E90FF;font-size: 220%;text-align: center;">{{manageRC_heading}}</h1>
+        <br>
+        
+        <div style="width: auto; margin-bottom: 30px; border: solid 1px black; text-align:left;
+        padding: 10px;">
+        
+        <label><b>{{manageRC_selectWS}}</b></label>
+        <select id="workshopid" name="workshopid" onchange="changeWorkshopId(this)">
+        <option value="{{wsid}}">{{wsid}}--{{wsname}}</option>
+        {% for obj in objects %}
+            <option value="{{obj.workshopid}}">{{obj.workshopid}}--{{obj.workshopname}}</option>
+        {% endfor %}
+        </select>
+        </div>
+        <div style="padding: 5px;">  
+                      <table class="" style="font-size: 120%">
+                        <tr><td>{{manageRCCapacity_sendMail}}</td>
+                                <td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="sendMail()">
+                                        {{sendMail_btn}}
+                                    </button></td></tr>
+                        <tr></tr>
+                         <tr></tr>
+                        <tr><td>{{manageRCCapacity_addNew}}</td>
+                          <!--<td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="addNewRC()">-->
+                          <td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="location.href='addNewRC'">
+                                        {{addNew_btn}}
+                                    </button></td></tr>
+                        <tr></tr>
+                         <tr></tr>
+                        <tr><td>{{manageRCCapacity_viewSeats}}</td>
+                            <td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="location.href='viewRCCapacity/0'">
+                                        {{viewSeats_btn}}
+                                    </button></td></tr>
+                            <tr></tr>
+                    </table>  
+                </div>
+            <div>
+            	<br><br>
+            	<table id="participantDetail1" class="display1" width="100%" cellspacing="0">
+            	<thead id="headers" style="font-size:110%">
+                <tr>
+                    <th style="text-align: center;">{{table_srNo}}</th>
+                    <th class="sortable-text" style="text-align: center;" scope="col">{{table_rcid}}</th>
+                    <th class="sortable-text" style="text-align: center;">{{table_rcname}}</th>
+                    <th class="sortable-text" style="text-align: center;">{{table_maxSeats}}</th>
+                    <th class="sortable-text" style="text-align: center;">{{table_maxAcco}}</th> 
+                    <th class="sortable-text" style="text-align: center;">{{table_accoCost}}</th>
+                    <th class="sortable-text" style="text-align: center;">{{table_foodCost}}</th>      
+                    <th class="ordinarytext" style="text-align: center;" colspan="2">Edit</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th><th></th><th></th><th></th><th></th>
+                    <th style="text-align: center;">{{update_btn}}</th>
+                    <th style="text-align: center;">{{delete_btn}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for obj in object_list %}
+                    <tr>
+                        <td style="text-align: center;">{{forloop.counter}}</td>
+                        <td style="text-align: center;">{{obj.rcid}}</td>
+                        <td style="text-align: center;">{{obj.rcname}}</td>
+                        <td style="text-align: center;">{{obj.available_seats}}</td>
+                        <td style="text-align: center;">{{obj.available_accomo}}</td>
+                        <td style="text-align: center;">{{obj.acco_cost}}</td>
+                        <td style="text-align: center;">{{obj.food_cost}}</td> 
+                        <td style="text-align: center;position: relative;">    
+                        {% if obj.acco_cost == null or obj.acco_cost == '' or obj.food_cost == '' or obj.food_cost == null %}
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" 
+                            onclick="location.href='{% url 'manageRCCapacity:updateRC' obj.workshopid obj.rcid obj.available_seats obj.available_accomo 0 0 %}'">
+                                {{update_btn}}
+                            </button></td>
+                            <td style="text-align: center;position: relative;">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="location.href='{% url 'manageRCCapacity:deleteRC' wsid obj.rcid %}'">
+                                {{delete_btn}}
+                            </button></td>
+                        {% else %}
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" 
+                            onclick="location.href='{% url 'manageRCCapacity:updateRC' obj.workshopid obj.rcid obj.available_seats obj.available_accomo obj.acco_cost obj.food_cost %}'">
+                                {{update_btn}}
+                            </button></td>
+                            <td style="text-align: center;position: relative;">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="location.href='{% url 'manageRCCapacity:deleteRC' wsid obj.rcid %}'">
+                                {{delete_btn}}
+                            </button></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+                <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#participantDetail1').DataTable();
+            } );
+        </script>
+            </div>
+            </div>
+            </div>
+            </div>
+   
+    {% endblock %}
+        

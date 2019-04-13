@@ -1,0 +1,617 @@
+{% extends "base_2.html" %}
+
+    {% block head_block %}
+<!--<!DOCTYPE HTML>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Introducing Lollipop, a sweet new take on tcube.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <title>TCube</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+            {% load staticfiles %}
+        <link rel="stylesheet" href="{% static "css/material.css" %}">
+    {% load staticfiles %}
+        <link rel="stylesheet" href="{% static "css/style.css" %}">-->
+        <link rel="stylesheet" href="{% static 'font-awesome-4.6.3/css/font-awesome.min.css' %}">
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.3.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+            $('#participantDetail1').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                     'excel', 'print'
+                ]
+            } );
+            } );
+        </script>
+
+        <script type="text/javascript">
+            function changeDisplays(colNo){
+                var table = document.getElementById('participantDetail1');
+                var rows = table.getElementsByTagName('tr');
+                var col = rows[0].getElementsByTagName('th');
+                if (col[colNo].style.display == 'none')
+                {
+                    col[colNo].style.display = '';
+                }
+                else
+                {
+                    col[colNo].style.display = 'none';
+                }
+                for (var row = 1; row < rows.length; row++)
+                {
+                    var col1 = rows[row].getElementsByTagName('td')
+                    if (col1[colNo].style.display == 'none')
+                    {
+                        col1[colNo].style.display = '';
+                    }
+                    else
+                    {
+                        col1[colNo].style.display = 'none';
+                    }
+                }
+            }
+
+            function changeRCCId(obj,wsid){
+                //var urlString = "http://127.0.0.1:8000/statusManagement/statusManage/";
+                var urlstr=window.location.href;
+                var pos=urlstr.indexOf("/statusManage/")+14;
+                var urlString=urlstr.slice(0,pos);
+                var selectedrc = obj.options[obj.selectedIndex];
+                if (selectedrc.value != -1){
+                    window.location = urlString + wsid + '/' + 0 + '/' + selectedrc.value;
+                }
+            }
+
+        function changeStatus(btnid,pid,wsid){
+            $.ajax({
+                   type: "GET",
+                   url:"/statusManagement/changeStatus",                                             
+                   data:{btnid:btnid,pid:pid,wsid:wsid},    
+                   contentType: "application/json; charset=utf-8",                    
+                   datatype: 'json',
+                   success: function(result){
+                        alert("Status has been changed.")
+                        location.reload();
+                   }
+                });
+        }
+        </script>
+        <style type="text/css">
+            #approvedButton,#cancelledButton,#invalidButton,#confirmedButton,#completedButton,#acceptedButton{
+                width: 99px; 
+                margin-top: 2.5px;
+                margin-bottom: 2.5px; 
+                height: 25px;
+            }
+            #approvedButton{
+                background: #1e90ff;
+            }
+            #cancelledButton,#cancel_diagram{
+                background: red;
+            }
+            #invalidButton,#invalid_diagram{
+                background: brown;
+            }
+            #confirmedButton,#confirm_diagram{
+                 background: green;
+            }
+            #completedButton,#complete_diagram{
+                background: #004d1a;
+            }
+            #acceptedButton,#accept_diagram{
+                background: purple;
+            }
+            #register_diagram{
+                background: grey;
+            }
+            #all_diagram{
+                background: black;
+            }
+            .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+            }
+            .modal-dialog {
+                margin-left: 200px;
+                width: 70%;
+                overflow: auto;
+            }
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto; 
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%; 
+            }
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        </style>
+        
+        <script type="text/javascript">
+        function callModal(pid){
+            var modal = document.getElementById('myModal');
+            var span = document.getElementsByClassName("close")[0];
+            modal.style.display = "block";
+            span.onclick = function() {
+                $('#myModal').find("input,textarea,select").val('').end()
+                       .find("input[type=checkbox]").prop("checked", "").end();
+                //$('#myModal').find("input[type=checkbox]").prop("checked", "").end();
+                modal.style.display = "none";
+                }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                $('#myModal').find("input,textarea,select").val('').end()
+                       .find("input[type=checkbox]").prop("checked", "").end();
+                //$('#myModal').find("input[type=checkbox]").prop("checked", "").end();
+                modal.style.display = "none";
+                }
+            }
+            document.getElementById("pid_hidden").value=pid;
+        }
+
+        function changeStatusAndSendMail(pid,wsid){
+            var a=[];
+            $("input:checkbox[name=reason]:checked").each(function(){
+                a.push($(this).next().text());
+            });
+            if(document.getElementById('reasonTextArea').value!=''){
+                a.push(document.getElementById('reasonTextArea').value);
+            }
+            if(a.length!=0){
+                a.toString();
+                $.ajax({
+                   url: "{% url 'statusManagement:sendMail' %}" + "?arr_reasons="+a+"&pid="+pid+"&wsid="+wsid,
+                   type: "GET",
+                   dataType: 'json',
+                   traditional: true,
+                   success: function(result){
+                        alert("Status has been changed.");
+                        var modal = document.getElementById('myModal');
+                        modal.style.display = "none";
+                        location.reload();
+                   }
+                });
+            }
+        }
+
+        function sendMail_cancel(pid,wsid){
+            $.ajax({
+                   url: "{% url 'statusManagement:sendMail_cancel' %}" + "?&pid="+pid+"&wsid="+wsid,
+                   type: "GET",
+                   dataType: 'json',
+                   traditional: true,
+                   success: function(result){
+                        alert("Status has been changed.");
+                        location.reload();
+                   }
+                });
+        }
+        </script>
+        {% endblock %}
+
+        {% block body_block %}
+       <!--</head>
+    <body>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <div class="tcube-header mdl-layout__header mdl-layout__header--waterfall">
+             <div class="mdl-layout__header-row">
+                    <span class="tcube-title mdl-layout-title">
+                        TCube                         
+                    </span>
+                    <div class="tcube-header-spacer mdl-layout-spacer"></div>
+                    <div class="tcube-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width">
+                        <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
+                            <i class="material-icons">search</i>
+                        </label>
+                        <div class="mdl-textfield__expandable-holder">
+                            <input class="mdl-textfield__input" type="text" id="search-field">
+                        </div>
+                    </div>
+                    <div class="tcube-navigation-container">
+                        <nav class="tcube-navigation mdl-navigation">
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">test</a>
+                        </nav>
+                    </div>
+                    <span class="tcube-mobile-title mdl-layout-title">TCube                         
+                    </span>
+                    <button class="tcube-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+                        <i class="material-icons">test</i>
+                    </button>
+                    <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+                        <li class="mdl-menu__item">test</li>
+                        <li class="mdl-menu__item">test</li>
+                        <li disabled class="mdl-menu__item">test</li>
+                        <li class="mdl-menu__item">test</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tcube-drawer mdl-layout__drawer">
+                <span class="mdl-layout-title">
+                    TCube
+                </span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <div class="tcube-drawer-separator"></div>
+                    <span class="mdl-navigation__link" href="">test</span>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <div class="tcube-drawer-separator"></div>
+                    <span class="mdl-navigation__link" href="">test</span>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <div class="tcube-drawer-separator"></div>
+                    <span class="mdl-navigation__link" href="">test</span>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                    <a class="mdl-navigation__link" href="">test</a>
+                </nav>
+            </div>
+            <div class="tcube-content mdl-layout__content">
+            <a name="top"></a>
+            <div class="tcube-be-together-section mdl-typography--text-center">-->
+                <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--12-col">
+                        <div class="mdl-js-layout__content" align="center">
+                        <h1 style="font-size: 180%; color:#1E90FF;">{{wshop.workshopname}}</h1>
+                        <h1 style="font-size: 180%;">{{wshop.startdate}} to {{wshop.enddate}} </h1>
+                        </div>
+                <div class="form_settings">  
+                    <table class="content_container1" style="font-size: 120%;" border="1">
+                        <tr>
+                            {% if flag == 1 %}
+                                <td width="70%" height="40px" style="text-align:left;">{{table_rc}}</td>
+                            {% else %}
+                                <td width="70%" height="40px" style="text-align:left;">{{table_state}}</td>
+                            {% endif %}
+                        <td height="40px" >
+                         <select id="workshopid" onchange="changeRCCId(this,{{wsid}});">
+                            {% if check == 1 %}
+                                {% if flag == 1 %}
+                                    <option value="-1">{{qs.remotecenterid}}  --  {{qs.remotecentername}}</option>
+                                    <option value="0">All</option>
+                                {% endif %}
+                           {% endif %}
+                            {% if check == 1 %}
+                                {% if flag == 0 %}
+                                    <option value="-1">{{qs.state}}</option>
+                                    <option value="0">All</option>
+                                {% endif %}
+                            {% endif %}
+                            {% if check == 0 %}
+                                <option value="-1">All</option>
+                            {% endif %}             
+                            {% if flag == 1 %}
+                                {% for obj in qrcc %}
+                                    <option value={{obj.rcid}}>{{obj.rcid}}  --  {{obj.remotecentername}}</option>
+                                {% endfor %}
+                            {% endif %}
+                            {% if flag == 0 %}
+                                {% for obj in state %}
+                                    {% if obj.stateid != -1 %}
+                                        <option value={{obj.stateid}}>{{obj.state}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                    </select>
+
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td height="40px" style="text-align:left;">{{table_view}}</td>
+                            <td height="40px" ><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="location.href='{% url 'statusManagement:viewRCCapacity' wsid 0 %}'">
+                        {{btn_viewSeats}}
+                    </button></td>
+                        </tr>
+                            <tr> 
+                                <td height="40px" style="text-align:left;">{{table_enroll}}</td>
+                                <td height="40px" ><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="">
+                        {{btn_enroll}}
+                    </button></td>
+                            </tr>
+                        </table>       
+                </div>
+                <div id="flow" class="panel-body processflow collapse in">
+                    <div class="">&nbsp;</div>
+                        <div class="table-responsive">
+                            <table class="table" align="center">
+                                <tbody>
+                                    <tr class="text-center">
+                                        <td> <button id="all_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'statusManagement:statusmanage' wsid 0 rcid%}'" title="Click to see participants of all statuses.">{{dropdown_all}}({{al}})</button></td>
+                                        <td><h5><i class="fa fa-arrow-right fa-lg text-primary"></i></h5></td>
+                                        <td> <button id="register_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'statusManagement:statusmanage' wsid 1 rcid%}'" title="This status means that the participant has registered for the workshop.">{{diagram_reg}}({{rr}})</button></td>
+                                        <td><h5><i class="fa fa-arrow-right fa-lg text-primary"></i></h5></td>
+                                        <td> <button id="process_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'statusManagement:statusmanage' wsid 3 rcid%}'" title="This status means that the participant has been provisionally selected.">{{diagram_process}}({{ra}})</button></td>
+                                        <td><h5><i class="fa fa-arrow-right fa-lg text-primary"></i></h5></td>
+                                        {% if wshop.categorycode == 7 %}
+                                            <td class="text-center"> <button id="accept_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'statusManagement:statusmanage' wsid 7 rcid%}'" title="This status means that the participant has been accepted for the workshop.">{{diagram_accepted}}({{ac}})</button></td>
+                                            <td><h5><i class="fa fa-arrow-right fa-lg text-primary"></i></h5></td>
+                                        {% endif %}
+                                        <td><button id="confirm_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'statusManagement:statusmanage' wsid 4 rcid%}'" title="This status means that the participant's selection is confirmed and he/she has logged in to IITB-X">{{btn_confirmed}}({{con}})</button></td>
+                                    </tr>
+                                    <tr class="text-center" style="line-height: 5px !important;height: 5px !important;">
+                                        <td colspan="9" style="border-top: 5px solid #428BCA !important;"></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td></td><td></td>
+                                        <td><i class="fa fa-arrow-down fa-2x text-primary"></i></td>
+                                        <td></td>
+                                        <td><i class="fa fa-arrow-down fa-2x text-primary"></i></td>
+                                        <td></td>
+                                        <td><i class="fa fa-arrow-down fa-2x text-primary"></i></td>
+                                        {% if wshop.categorycode == 7 %}
+                                            <td></td>
+                                            <td><i class="fa fa-arrow-down fa-2x text-primary"></i></td>
+                                        {% endif %}
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td></td><td></td>
+                                        <td><button id="invalid_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'statusManagement:statusmanage' wsid 2 rcid%}'" title="This status means that the participant's registration is invalid.">{{btn_invalid}}({{ri}})</button></td>
+                                        <td></td>
+                                        {% if wshop.categorycode == 7 %}
+                                            <td></td>
+                                        {% endif %}
+                                        <td><button id="cancel_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'statusManagement:statusmanage' wsid 6 rcid%}'" title="This status means that the participant has been cancelled.">{{diagram_cancel}}({{can}})</button></td>
+                                        <td></td>
+                                        {% if wshop.categorycode == 7 %}
+                                            <td></td>
+                                        {% endif %}
+                                        <td><button id="complete_diagram" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="location.href='{% url 'statusManagement:statusmanage' wsid 5 rcid%}'" title="This status means that the participant has completed the course.">{{diagram_comp}}({{com}})</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                 <div>
+                 <br>
+                 <p style="font-size: 100%;" align="center">{{diagram_click}}</p>
+                    <br/>
+                    <p style="font-weight: bold;font-size: 120%;">{{statusManagement_checkboxes}}</p>
+                    <table align='center'>
+                    <tr>
+                    <td><label class="mdl-checkbox mdl-js-checkbox" for="designation">
+                        <input type="checkbox" id="designation" class="mdl-checkbox__input" onclick="changeDisplays(9);">
+                        <span class="mdl-checkbox__label">{{checkbox_desig}}</span>
+                    </label></td>
+                    <td><label class="mdl-checkbox mdl-js-checkbox" for="experience">
+                        <input type="checkbox" id="experience" class="mdl-checkbox__input" onclick="changeDisplays(11);">
+                        <span class="mdl-checkbox__label">{{checkbox_exp}}</span>
+                    </label></td>
+                    <td><label class="mdl-checkbox mdl-js-checkbox" for="qualification">
+                        <input type="checkbox" id="qualification" class="mdl-checkbox__input" onclick="changeDisplays(10);">
+                        <span class="mdl-checkbox__label">{{checkbox_qual}}</span>
+                    </label></td>
+                    <td><label class="mdl-checkbox mdl-js-checkbox" for="registrationDate">
+                        <input type="checkbox" id="registrationDate" class="mdl-checkbox__input" onclick="changeDisplays(12);">
+                        <span class="mdl-checkbox__label">{{checkbox_regDate}}</span>
+                    </label></td>
+                    <td><label class="mdl-checkbox mdl-js-checkbox" for="stream">
+                        <input type="checkbox" id="stream" class="mdl-checkbox__input" onclick="changeDisplays(13);">
+                        <span class="mdl-checkbox__label">{{checkbox_stream}}</span>
+                    </label></td>
+                    <td><label class="mdl-checkbox mdl-js-checkbox" for="participantId">
+                        <input type="checkbox" id="participantId" class="mdl-checkbox__input" onclick="changeDisplays(1);">
+                        <span class="mdl-checkbox__label">{{checkbox_participantId}}</span>
+                    </label></td>
+                    </tr>
+                    </table>
+                </div>
+                <div style="width: auto; overflow-x: scroll; height: auto;" id="participantTable">
+                <br><br>
+        <table class="display1" id="participantDetail1" style="word-spacing: normal;text-wrap: avoid;" align="center">
+            <thead id = "headers" > 
+                <tr>
+                    <th>{{table_srNo}}</th>
+                    <th style="display: none;">{{table_pId}}</th>
+                    <th>{{table_name}}</th>
+                    <th>{{table_email}}</th>
+                    {% if flag == 1 %}
+                        <th>{{table_remotecenterid}}</th>
+                        <th>{{table_rcname}}</th>
+                    {% endif %}
+                    <th>{{table_insName}}</th>
+                    <th >{{table_state}}</th>
+                    <th>{{table_mobNo}}</th>
+                    <th  style="display: none;">{{checkbox_desig}}</th>
+                    <th  style="display: none;">{{table_qualification}}</th>
+                    <th  style="display: none;">{{table_exp}}</th>
+                    <th  style="display: none;">{{table_regDate}}</th>
+                    <th  style="display: none;">{{checkbox_stream}}</th>
+                    <th>{{table_acco}}</th>
+                    <th>{{table_id}}</th>
+                    <th>{{table_letter}}</th>
+                    <th>{{table_status}}</th>
+                    {% if wshop.categorycode == 8 %}
+                        <th>{{table_certificate}}</th>
+                    {% else %}
+                        <th style="display: none;" align="center">{{table_certificate}}</th>
+                    {% endif %}
+                    <th>{{table_update}}</th> 
+                    {% if wshop.categorycode == 8 %}
+                        <th>{{table_payment}}</th>
+                    {% else %}
+                        <th style="display: none;">{{table_payment}}</th>
+                    {% endif %}         
+                </tr>
+            </thead>
+            <tbody align="center" id="participantDetailsBody1">
+             {% for obj in object_list %}
+                    <tr class="gradeU">
+                        <td style="align:right" id="sno_1">{{forloop.counter}}</td>
+                        <td id="pid_1" style="display: none;">{{obj.participantid.participantid}}</td>
+                        <td id="name_1">{{obj.firstname}} {{obj.lastname}}</td>
+                        <td id="email_1">{{obj.email}}</td>
+                        {% if flag == 1 %}
+                            <td id="remotecenterId_1">{{obj.instituteid}}</td>
+                            <td id="remotecenterName_1">{{obj.remotecentername}}</td>
+                        {% endif %}
+                        <td id="instituteName_1">{{obj.institutename}}</td>
+                        <td id="remotecenterState_1">{{obj.state}}</td>
+                        <td id="mobile_1">{{obj.mobile}}</td>
+                        <td id="designation_1" style="display: none;">{{obj.designation}}</td>
+                        <td id="qualification_1" style="display: none;">{{obj.qualification}}</td>
+                        <td id="experience_1" style="display: none;">&gt;{{obj.experience}}</td>
+                        <td id="regtime_1" style="display: none;">{{obj.regtime}}</td>
+                        <td id="stream_1" style="display: none;">{{obj.stream}}</td>
+                        <td id="aaommodation_">{{obj.accomodation}}</td>
+                        <!--<td id="id_1"><a href="{{obj.image}}" target="_blank">{{table_id}}</a></td>-->
+                        <td id="id_1"><a href="{% url 'statusManagement:showPhoto' obj.participantid.participantid %}" target="_blank">{{table_id}}</a></td>
+                        <td id="letter_1"><a href="{% url 'statusManagement:showLetter' obj.participantid.participantid wshop.workshopid %}" target="_blank">{{table_letter}}</a></td>
+                        <td id="1">{{obj.status}}</td>
+                        {% if wshop.categorycode == 8 %}
+                            {% if obj.certificate == 1 %}
+                                <td align="center">
+                                <input type="checkbox" id="certificate" class="mdl-checkbox__input" checked/></td>
+                            {% else %}
+                                <td align="center">
+                                <input type="checkbox" id="certificate" class="mdl-checkbox__input"/></td>
+                            {% endif %}
+                        {% else %}
+                            <td style="display: none;"><label class="mdl-checkbox mdl-js-checkbox" for="certificate">
+                            <input type="checkbox" id="certificate" class="mdl-checkbox__input"/></label></td>
+                        {% endif %}
+                        <td style="position: relative; padding: 0 0 0 0; height:'50px';" id="update_1">
+                        {% if wshop.categorycode == 8 %}
+                            {% if obj.approved == 'Y' and obj.payment == 'paid'%}
+                            <button id="approvedButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="changeStatus(this.id,{{obj.participantid.participantid}},{{wshop.workshopid}})">{{btn_approve}}</button>
+                            {% endif %}
+
+                            {% if obj.invalid == 'Y' %}
+                            <button id="invalidButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="callModal({{obj.participantid.participantid}})">{{btn_invalid}}</button>
+                            {% endif %}
+
+                            {% if obj.confirmed == 'Y' and obj.payment == 'paid' %}
+                            <button id="confirmedButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="changeStatus(this.id,{{obj.participantid.participantid}},{{wshop.workshopid}})">{{btn_confirmed}}</button>
+                            {% endif %}
+
+                            {% if obj.completed == 'Y' and obj.payment == 'paid' %}
+                            <button id="completedButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="changeStatus(this.id,{{obj.participantid.participantid}},{{wshop.workshopid}})">{{btn_complete}}</button>
+                            {% endif %}
+
+                            {% if obj.cancelled == 'Y' %}
+                            <button id="cancelledButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="sendMail_cancel({{obj.participantid.participantid}},{{wshop.workshopid}})">{{btn_cancel}}</button>
+                            {% endif %}
+
+                        {% else %}
+                            {% if obj.approved == 'Y' %}
+                            <button id="approvedButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="changeStatus(this.id,{{obj.participantid.participantid}},{{wshop.workshopid}})">{{btn_approve}}</button>
+                            {% endif %}
+
+                            {% if obj.invalid == 'Y' %}
+                            <button id="invalidButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  onclick="callModal({{obj.participantid.participantid}})">{{btn_invalid}}</button>
+                            {% endif %}
+
+                            {% if obj.confirmed == 'Y' %}
+                            <button id="confirmedButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="changeStatus(this.id,{{obj.participantid.participantid}},{{wshop.workshopid}})">{{btn_confirmed}}</button>
+                            {% endif %}
+
+                            {% if obj.completed == 'Y' %}
+                            <button id="completedButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="changeStatus(this.id,{{obj.participantid.participantid}},{{wshop.workshopid}})">{{btn_complete}}</button>
+                            {% endif %}
+
+                            {% if obj.cancelled == 'Y' %}
+                            <button id="cancelledButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="changeStatus(this.id,{{obj.participantid.participantid}},{{wshop.workshopid}})">{{btn_cancel}}</button>
+                            {% endif %}
+                        {% endif %}
+                        </td>
+                        {% if wshop.categorycode == 8 %}
+                            <td>{{obj.payment}}</td>
+                        {% else %}
+                            <td style="display: none;">Paid</td>
+                        {% endif %}
+                {% endfor %}
+                </tbody>
+                </table>
+                </div>
+            
+                <div id="myModal" class="modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close">x</span>
+                            <h1 style="font-size: 180%; color:#1E90FF;">{{regInvalidReasons}}</h1>
+                        </div>
+                        <div class="modal-body" align="left" id="modal_reasons">
+                            {% for each in listReasons %}
+                                <label class="mdl-checkbox mdl-js-checkbox" for="check_{{forloop.counter}}" id="reason_{{forloop.counter}}">
+                                <input type="checkbox" name="reason" id="check_{{forloop.counter}}" class="mdl-checkbox__input" onclick="" autocomplete="off">
+                                <span class="mdl-checkbox__label" id="desc_{{forloop.counter}}">{{each.description}}</span>
+                                </label>
+                            {% endfor %}
+                            <br><br>
+                            <p style="font-size:120%;">{{otherReasons}}</p>
+                            <textarea rows="5" cols="100" onchange="" id="reasonTextArea" autocomplete="off"></textarea>
+                            <div align="center">
+                            <button id="sendMail" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="changeStatusAndSendMail(document.getElementById('pid_hidden').value,{{wshop.workshopid}})">{{btn_sendMail}}</button>
+                            <input type="hidden" name="pid_hidden" id="pid_hidden">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           </div>
+        </div>     
+        <!--<footer class="tcube-footer mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">            
+                <p class="mdl-typography--font-light">Hit Count</p>              
+            </div> 
+            <div class="mdl-mini-footer--middle-section">
+                <p class="mdl-typography--font-light">TCube: © 2016, IIT Bombay</p>
+                <p class="mdl-typography--font-light">Designed and developed by software team</p>
+            </div>
+        </footer>
+        </div>
+        </div>
+        </div>
+        <script src="js/material.min.js"></script>
+        </script>
+{% load staticfiles %}
+    <script src="{% static "js/material.min.js" %}"></script>
+
+    </body>
+    </html>-->
+    {% endblock %}

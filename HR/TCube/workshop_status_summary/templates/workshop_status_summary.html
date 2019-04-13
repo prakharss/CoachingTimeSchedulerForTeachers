@@ -1,0 +1,95 @@
+
+
+{% extends "ws_base.html" %}
+{% load staticfiles %}
+
+{% block title %}Workshop Status Summary{% endblock %}
+
+
+{% block content %} 
+<style>
+      td {
+        max-width: 200px;
+        text-overflow: ellipsis;
+        
+        }
+ </style> 
+ 
+<div  >
+            <div style="width:100%;max-width:100%;padding-left: 15px; padding-right: 15px; text-align: center;color:#4775d1;"><h3><b>Workshop Status Summary Report</b></h3></div>
+
+            <div style="padding-left: 20px;">
+                <p>
+                  <form method="GET"> 
+                  {% csrf_token %}
+				<center>
+                    <span style="font-size: 18px;">Start Year(MM/dd/YYYY):<sup><i class="material-icons" style="font-size: 18px; color : red;">star</i></sup></span>
+                    
+                    <input type="date" style="width: 100px; background: white; border: none;"  id="datepicker1" name="startdate">
+                    &nbsp;&nbsp;
+                    <span style="font-size: 18px;">End Year(MM/dd/YYYY) :<sup><i class="material-icons" style="font-size: 18px; color : red;">star</i></span>
+                    <input type="date" style="width: 100px; background: white; border: none;"  id="datepicker2" name="enddate">
+   
+                    &nbsp;&nbsp;
+                    <input id="sbutton"  type="submit" value="search" /><br><br>
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    
+                    
+                    <span style="font-size: 18px;">Export Excel</span> <button class="btn btn-success" id="btnExport" onclick="fnExcelReport();"><img style="height:35px;width:35px" src="{% static 'images/excel.png' %}"/></button>
+                   </center>                    
+                    <iframe id="txtArea1" style="display:none"></iframe>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                   
+                    </form>
+                </p>
+            </div>
+
+            <table id="mytable" >                    
+                    <thead id="tablehead" name="tablehead" >  
+                        <tr>
+                            <th style="text-align: center;border-right: 1px solid black;border-top: 1px solid black;" colspan="4" >Workshop Details</th>   
+                            <th style="text-align: center;border-right: 1px solid black;border-top: 1px solid black;" colspan="4" >Participants Registered but not attended</th>   
+                            <th style="text-align: center;border-right: 1px solid black;border-top: 1px solid black;" colspan="2" >Participants Attended</th>  
+                            <th style="text-align: center;border-top: 1px solid black;border-bottom: 1px solid #EEEEEE;"  >Total </th>
+                        </tr>
+                        <tr>
+                            <th class="mdl-data-table__cell--non-numeric " style="display:none;">Sno</th>
+                            <th id="wid" >WorkshopId</th>
+                            <th >Workshop Name</th>
+                            <th >Start Date</th>
+                            <th style="border-right: 1px solid black;" >End Date</th>
+                            <th >Approved</th>
+                            <th >Cancelled</th>
+                            <th >Invalid</th>
+                            <th  style="border-right: 1px solid black;">Registered</th>
+                            <th  style="white-space: pre-wrap;">Certificate Not Issued</th>
+                            <th  style="white-space: pre-wrap;border-right: 1px solid black;">Certificate Issued</th>  
+                            <th  style="">Registrations</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytablebody"  name="tablebody" >
+                        {% for each in result %}
+                        
+                            <tr id="session_">
+                                <td  style="display:none;">Sno</td>
+                                <td  style="text-align: center;">{{ each.0 }}</td>
+                                <td  >{{each.1}}</td>
+                                <td  >{{each.2}}</td>
+                                <td >{{each.3}}</td>
+                                <td  style="text-align: center;">{{each.4}}</td>
+                                <td  style="text-align: center;">{{each.5}}</td>
+                                <td   style="text-align: center;">{{each.8}}</td>
+                                <td   style="text-align: center;">{{each.9}}</td>
+                                <td  style="text-align: center;">{{each.6}}</td>
+                                <td  style="text-align: center;">{{each.7}}</td>       
+                                <td  style="text-align: center;">{{each.10}}</td>
+                            </tr>
+                           {% endfor %} 
+                        </tbody>
+                </table>  
+</div>
+
+
+{% endblock %}
+
+

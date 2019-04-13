@@ -1,0 +1,24 @@
+{% extends "base_2.html" %}
+
+{% block title %}title{% endblock %}
+{% block body_block %}
+<style>
+a{
+font-size: 120%;
+}
+</style>
+<span style="position:relative;left:20%;">
+<h2>TCube | Reports </h2>
+<div style="text-align:left;">
+1. <a href="workshop_status_summary/">Workshop Status Summary</a><br>
+2. <a href="workshop_diversity/">Workshop Diversity/</a><br>
+3. <a href="remote_centre_summary/">Remote Centre wise Summary</a><br>
+4. <a href="state_wise_summary/">State wise Summary</a><br>
+5. <a href="get_Invite_Not_RegData/">Participants Invited but not Registered</a><br>
+6. <a href="get_Login_Not_RegData/">Participants Signed Up but not Registered</a><br>
+7. <a href="total_ws_by_participant_wise/">Total Workshops Attended- Participant wise</a><br>
+8. <a href="total_ws_by_institute_wise/">Total Workshops Attended- Institute wise</a><br>
+</div>
+</span>
+<br /><br /><br /><br /><br /><br />	
+{% endblock %}

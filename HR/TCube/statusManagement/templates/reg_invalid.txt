@@ -1,0 +1,13 @@
+Welcome to TCube
+
+Dear {{name}},
+
+Your registration for {{wsname}} is invalid for the following reasons.
+{{message}}
+You are requested to re upload the scanned copy of the valid permission letter on the following link immediately. Please note once you update your permission letter your registration status will be changed to "Registered".
+After verification of your registration, you will be receiving an approval email for attending the STTP.
+
+Thanks and Regards,
+The TCube Team
+
+This is system generated email. Please do not reply to this message; it was sent from an un-monitored email address. This message is a service email related to your use of TCube account. For general enquiries or to request support with your TCube account, please visit us at .Contact Us .

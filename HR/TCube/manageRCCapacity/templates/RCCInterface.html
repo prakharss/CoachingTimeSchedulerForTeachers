@@ -1,0 +1,201 @@
+   {% extends "base_2.html" %}
+
+    {% block head_block %}
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>
+            function changeText(imageid, displayid) {
+                var srcTest = document.getElementById(imageid).src;
+                if (srcTest.indexOf("plus.png") > -1) {
+                    document.getElementById(displayid).style.display = "block";
+                    {% load staticfiles %}
+                    document.getElementById(imageid).src = "{% static 'images/minus.png' %}";
+                } else {
+                    document.getElementById(displayid).style.display = "none";
+                    {% load staticfiles %}
+                    document.getElementById(imageid).src = "{% static 'images/plus.png' %}";
+                }
+            }
+        </script>
+        <script type="text/javascript">
+            function fillSeats(wsid,rcid) {
+                //var urlString="http://127.0.0.1:8000/manageRCCapacity/RCCapacityDetails.html/"
+                var urlString=window.location.href;
+                window.location=urlString + wsid + "/" + rcid; 
+            }
+        </script>
+        <script type="text/javascript">
+            function decline(wsid,rcid){
+                $.ajax({
+                   type: "GET",
+                   url:"/manageRCCapacity/declineRC",                                             
+                   data:{wsid:wsid},    
+                   contentType: "application/json; charset=utf-8",                    
+                   datatype: 'json',
+                   success: function(result){
+                            var count=result.selected_qs.length;  
+                            if(count!=0){
+                                alert("The remote center still has participants.");
+                            } 
+                            else{
+                                var res=result.selected_ws[0].pk;
+                               saveDeclinedRC(res,{{rcid}});
+                           }
+                   }
+                });
+            }
+        </script>
+        <script type="text/javascript">
+            function saveDeclinedRC(wsid,rcid){
+                $.ajax({
+                   type: "GET",
+                   url:"/manageRCCapacity/saveDeclinedRC",                                             
+                   data:{wsid:wsid,rcid:rcid},    
+                   contentType: "application/json; charset=utf-8",                    
+                   datatype: 'json',
+                   success: function(result)                                          
+                        {  
+                            var res=result.selected[0].pk;
+                            document.getElementById(res).disabled=true;
+                            alert("The remote center has been declined.")
+                            //window.location.href="http://127.0.0.1:8000/manageRCCapacity/RCCInterface.html/"
+                        }
+                    });
+            }
+        </script>
+    {% endblock %}
+
+    {% block body_block %}
+
+                <div class="mdl-grid">
+                    <!--<div class="mdl-cell mdl-cell--1-col"></div>-->
+                    <div class="mdl-cell mdl-cell--8-col">
+                        <h1 style="font-size: 180%; color:#1E90FF;">{{rccInterface_heading}}</h1>
+                        <p align="left" style="font-size:150%;">{{manageRC_heading}}
+                        {% load staticfiles %}
+                        <img id="imgshow7" class="plus_button" src="{% static 'images/plus.png' %}" onclick="changeText('imgshow7', 'managercc1');" style="width:3%; height:3%;"></p>
+                        <div id="managercc1" style="display:none;">
+                        <table id="remoteCenters" class="display1" width="100%" cellspacing="0"  border="1">
+                                <thead id="headers" style="font-size:120%">
+                                    <tr>
+                                        <th style="text-align: center;">{{table_srNo}}</th>
+                                        <th class="sortable-text" style="text-align: center;" scope="col">{{table_wsname}}</th>
+                                        <th class="sortable-text" style="text-align: center;">{{table_date}}</th>
+                                        <th class="sortable-text" style="text-align: center;">{{table_edit}}</th>
+                                        <th class="sortable-text" style="text-align: center;">{{decline_btn}}</th>     
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for obj in objects %}
+                                <tr class="gradeU" >
+                                    <td style="text-align: center;">{{forloop.counter}}</td>
+                                    <td style="text-align: center;">{{obj.workshopname}}</td>
+                                    <td style="white-space: nowrap;">{{obj.startdate}} to {{obj.enddate}}</td>
+                                    {% if date < obj.startdate %}
+                                        <td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="fillseats" onclick="fillSeats({{obj.workshopid}},{{rcid}})">{{fillSeats_btn}}</button></td>
+                                        {% if obj.is_declined != 1 %}
+                                            <td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="{{obj.workshopid}}" onclick="decline({{obj.workshopid}},{{rcid}})">{{decline_btn}}</button></td>
+                                        {% else %}
+                                            <td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="{{obj.workshopid}}" disabled>{{decline_btn}}</button></td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="fillseats" disabled>{{fillSeats_btn}}</button></td>
+                                         <td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="{{obj.workshopid}}" disabled="">{{decline_btn}}</button></td>
+                                    {% endif %}
+                                 </tr>
+                                 {% endfor %}
+                                </tbody>
+                        </table>
+                        </div>
+                        <br><br>
+                        <p align="left" style="font-size:150%;">{{rccInterface_manageParticipants}}
+                        {% load staticfiles %}
+                        <img id="imgshow8" class="plus_button" src="{% static 'images/plus.png' %}" onclick="changeText('imgshow8', 'managerpart1');" style="width:3%; height:3%;"></p>
+                        <div id="managerpart1" style="display:none;">
+                        <table id="participants" class="display1" width="100%" cellspacing="0"  border="1">
+                                <thead id="headers" style="font-size:120%">
+                                    <tr>
+                                        <th style="text-align: center;">{{table_srNo}}</th>
+                                        <th class="sortable-text" style="text-align: center;" scope="col">{{table_wsname}}</th>
+                                        <th class="sortable-text" style="text-align: center;">{{table_date}}</th>
+                                        <th class="sortable-text" style="text-align: center;">{{table_details}}</th>    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for obj in objectSet %}
+                                <tr class="gradeU" >
+                                    <td style="text-align: center;">{{forloop.counter}}</td>
+                                    <td style="text-align: center;">{{obj.workshopname}}</td>
+                                    <td style="white-space: nowrap;">{{obj.startdate}} to {{obj.enddate}}</td>
+                                    <td><a href="{% url 'manageRCCapacity:manageparticipants' rcid obj.workshopid %}">{{manage_link}}</a></td>
+                                 </tr> 
+                                 {% endfor %}
+                                </tbody>
+                        </table>
+                        </div>
+                        <br><br>
+                        <p align="left" style="font-size:150%;">{{rccInterface_viewParticipants}}
+                        {% load staticfiles %}
+                        <img id="imgshow9" class="plus_button" src="{% static 'images/plus.png' %}" onclick="changeText('imgshow9', 'viewpart1');" style="width:3%; height:3%;"></p>
+                        <div id="viewpart1" style="display:none;">
+                        <table id="participantsDetails" class="display1" width="100%" cellspacing="0"  border="1">
+                                <thead id="headers" style="font-size:120%">
+                                    <tr>
+                                        <th style="text-align: center;">{{table_srNo}}</th>
+                                        <th class="sortable-text" style="text-align: center;" scope="col">{{table_wsname}}</th>
+                                        <th class="sortable-text" style="text-align: center;">{{table_date}}</th>
+                                        <th class="sortable-text" style="text-align: center;">{{table_schedule}}</th>
+                                        <th class="sortable-text" style="text-align: center;">{{table_participantDetails}}</th>
+                                        <th class="sortable-text" style="text-align: center;">{{table_attendanceDetails}}</th>    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for obj in objectSet %}
+                                <tr class="gradeU" >
+                                    <td style="text-align: center;">{{forloop.counter}}</td>
+                                    <td style="text-align: center;">{{obj.workshopname}}</td>
+                                    <td style="white-space: nowrap;">{{obj.startdate}} to {{obj.enddate}}</td>
+                                    <td><a href="{% url 'manageRCCapacity:viewProgramSchedule' obj.workshopid %}">{{programSchedule_link}}</a></td>
+                                    <td><a href="{% url 'manageRCCapacity:viewRCParticipants' obj.workshopid 0 rcid %}">{{view_link}}</a></td>
+                                    <td><a href="/attendance/RCC_template.html?rcid={{rcid}}&workshopid={{obj.workshopid}}">{{attendance_link}}</a></td>
+                                 </tr> 
+                                 {% endfor %}
+                                </tbody>
+                        </table>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                    <div class="mdl-cell mdl-cell--3-col">
+                        <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                            <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                                <p class="title-white">Important News</p>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                Test News .. 
+                            </div>             
+                        </div>
+                        <br/>
+                        <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                            <div class="mdl-card__actions mdl-card--border mdl-color--our-green">
+                                <p class="title-white">Important News</p>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                Test News .. 
+                            </div>             
+                        </div>
+                    </div>
+                </div> 
+            <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+            <script type="text/javascript">
+                $(document).ready( function () {
+                $('#workshops').DataTable();
+                $('#remoteCenters').DataTable();
+                $('#participants').DataTable();
+                $('#participantsDetails').DataTable();
+                } );
+            </script>   
+            {% endblock %} 

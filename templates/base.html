@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Portal |
+        {% block title %}{% endblock %}</title>
+        {% load static %}
+        <link href="{% static 'css/journal.bootstrap.min.css' %}" rel="stylesheet">
+        <style>
+            body
+            {
+                background: url("{% static 'img/back.jpg' %}") no-repeat center fixed; 
+                background-size: cover;
+                padding-top:100px;
+            }
+            
+            .navbar-brand
+            {
+                font-size:1.75em;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        Portal
+                    </a>
+                </div>
+                <p class="navbar-text">{% block head %}{% endblock %}</p>
+                <p class="navbar-text navbar-right">{% block options %}{% endblock %}</p>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    {% block errors %}{% endblock %}
+                </div>
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        
+        {% load static %}
+        <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    </body>
+</html>
